@@ -1,0 +1,223 @@
+.mainbody {
+    background-image: url('../images/homepage.jpg'), linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+.logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+    }
+.logo img {
+        box-shadow: 0 4px 16px rgba(128, 128, 128, 6.5); /* soft grey shadow */
+    }
+
+.intro {
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.intro h1 {
+    font-size: 3em;
+    margin-bottom: 25px;
+}
+
+.intro-anim {
+    position: relative;
+    height: 16px;
+    margin: 0 auto 20px auto;
+    width: 320px; /* adjust as needed */
+}
+
+.intro-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 4px black;
+    z-index: 2;
+    animation: dot-move 2s cubic-bezier(.77,0,.18,1) infinite alternate;
+}
+
+.intro-line {
+    position: absolute;
+    top: 7px;
+    left: 8px;
+    height: 2px;
+    width: 0;
+    background: white;
+    z-index: 1;
+    animation: line-draw 2s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+@keyframes dot-move {
+    from { left: 0; }
+    to { left: 304px; } /* width - dot size */
+}
+
+@keyframes line-draw {
+    from { width: 0; }
+    to { width: 304px; }
+}
+
+.intro p {
+    font-size: 1.3em;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateX(-100px) scaleX(0.8);
+    animation: fly-in 2.2s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+@keyframes fly-in {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px) scaleX(2);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(200px) scaleX(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scaleX(1);
+    }
+}
+
+.social-icons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.whatsapp-btn {
+    position: fixed;
+    bottom: 70px;
+    right: 28px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2em;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    z-index: 2000;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+}
+.whatsapp-btn:hover {
+    background: #128C7E;
+    transform: scale(1.18);
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    text-align: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    padding: 5px 0;
+    font-size: 0.8em;
+    background: rgba(0,0,0,0.8);
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+    z-index: 100;
+    border-top: 1px solid #0a74da;
+    padding-top: 1px; /* Increase this value for more space above the blue line */
+}
+
+.footer p {
+    margin: 4px 0;
+    display: inline-flex;
+}
+
+/* Responsive Design */
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 4px 16px rgba(128, 128, 128, 0.5);
+} /* soft grey shadow */
+
+.intro-anim {
+    width: 90%;
+    max-width: 320px;
+}
+@media (max-width: 400px) {
+    .intro-anim {
+        max-width: 90vw;
+    }
+}
+
+.intro h1 {
+    font-size: 2.5em;
+}
+.intro p {
+    font-size: 1.3em;
+}
+.btn {
+    font-size: 1.2em;
+    padding: 8px 14px;
+    margin: 18px 8px;
+}
+@media (max-width: 600px) {
+    .intro h1 {
+        font-size: 1.6em;
+    }
+    .intro p {
+        font-size: 1em;
+    }
+    .btn {
+        font-size: 1em;
+        padding: 9px 13px;
+        margin: 13px 6px;
+    }
+}
+
+.whatsapp-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 2em;
+    bottom: 80px;
+    right: 30px;
+}
+@media (max-width: 600px) {
+    .whatsapp-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 2em;
+        bottom: 100px;
+        right: 30px;
+    }
+}
+
+.mainbody, .intro, .buttons, .footer {
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+@media (max-width: 600px) {
+    .mainbody {
+        padding-top: 80px; /* Increase this value as needed */
+    }
+}

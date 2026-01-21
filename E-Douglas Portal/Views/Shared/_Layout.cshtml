@@ -5,14 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - E_Douglas_Portal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/E_Douglas_Portal.styles.css" asp-append-version="true" />
+
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/templates/assets/img/apple-touch-icon.png">
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/templates/assets/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/templates/assets/img/favicon.png" type="image/x-icon">
+
+@*     <!-- Theme Script js -->
+    <script src="~/templates/assets/js/theme-script.js"></script> *@
+
+    <!-- Bootstrap CSS -->
+    <link href="~/templates/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+
+    <!-- Feather CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/icons/feather/feather.css">
+
+    <!-- Tabler Icon CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/tabler-icons/tabler-icons.css">
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/select2/css/select2.min.css">
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/templates/assets/plugins/fontawesome/css/all.min.css">
+
+    <!-- Datetimepicker CSS -->
+    <link rel="stylesheet" href="~/templates/assets/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Bootstrap Tagsinput CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+    <!-- Summernote CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/summernote/summernote-lite.min.css">
+
+    <!-- Daterangepikcer CSS -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/daterangepicker/daterangepicker.css">
+
+    <!-- Color Picker Css -->
+    <link rel="stylesheet" href="~/templates/assets/plugins/flatpickr/flatpickr.min.css">
+    <link rel="stylesheet" href="~/templates/assets/plugins/@@simonwep/pickr/themes/nano.min.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="~/templates/assets/css/style.css">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">E_Douglas_Portal</a>
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="site Logo" class="img-fluid"
+                         style="height: 40px; width: auto; margin-right: 10px;">
+                    <span>E-Douglas</span>
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -30,7 +81,7 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

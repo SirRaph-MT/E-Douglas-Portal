@@ -29,4 +29,8 @@
 		<PackageReference Include="X.PagedList.Mvc.Core" Version="10.5.9" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
 </Project>

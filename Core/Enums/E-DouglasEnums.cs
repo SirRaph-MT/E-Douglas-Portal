@@ -2,6 +2,10 @@
 {
     public class E_DouglasEnums
     {
+        public enum DropdownEnums
+        {
+            Gender = 1
+        }
         public enum StudentType
         {
             Regular = 1,

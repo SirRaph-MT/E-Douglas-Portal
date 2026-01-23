@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.DB
 {
-    public class AppDBContex : IdentityDbContext
+    public class AppDBContext : IdentityDbContext
     {
-        public AppDBContex(DbContextOptions<AppDBContex>options): base(options)
+        public AppDBContext(DbContextOptions<AppDBContext>options): base(options)
         {
             
         }
@@ -17,6 +17,7 @@ namespace Core.DB
         public DbSet<StudentProfile> StudentProfiles { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<ProgressRecord> ProgressRecords { get; set; }
+        public DbSet<DropDown> DropDowns { get; set; }
 
     }
 }

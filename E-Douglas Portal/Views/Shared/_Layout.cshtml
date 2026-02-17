@@ -1,100 +1,219 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var randomStr = DateTime.Now.ToString().ToLower().Replace(":", "").Replace("pm", "").Replace("am", "");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - E_Douglas_Portal</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/E_Douglas_Portal.styles.css" asp-append-version="true" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>@ViewData["Title"] - E_Douglas computer training center</title>
 
+    <link href="~/leadpage/assets/img/Apparcus logo.jpg" rel="icon">
+    <link href="~/leadpage/assets/img/Apparcus logo.jpg" rel="apple-touch-icon">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="~/leadpage/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/leadpage/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/leadpage/assets/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="~/leadpage/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="~/leadpage/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="~/leadpage/assets/css/main.css" rel="stylesheet" />
+    <link href="~/css/sweetalert2.css" rel="stylesheet" />
 
-    <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="~/templates/assets/img/apple-touch-icon.png">
+    <script>
+        function errorAlert(message) {
+            Swal.fire({
+                icon: 'error',
+                text: message,
+                timer: 60000,
+                confirmButtonColor: "#9333ea",
+            })
+        }
 
-    <!-- Favicon -->
-    <link rel="icon" href="~/templates/assets/img/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="~/templates/assets/img/favicon.png" type="image/x-icon">
+        function infoAlert(message) {
+            Swal.fire({
+                icon: 'info',
+                text: message,
+                timer: 30000,
+                confirmButtonColor: "#9333ea",
+            })
+        }
 
-@*     <!-- Theme Script js -->
-    <script src="~/templates/assets/js/theme-script.js"></script> *@
+        function infoAlertWithStyles(message) {
+            Swal.fire({
+                title: 'Incomplete Payment',
+                icon: 'info',
+                text: message,
+                confirmButtonColor: "#9333ea",
+            })
+        }
+        function newInfoAlert(message, url) {
+            Swal.fire({
+                icon: 'info',
+                text: message,
+                timer: 30000,
+                confirmButtonColor: "#9333ea",
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    location.href = url;
+                }
+            })
+        }
+        function successAlert(message) {
+            Swal.fire({
+                icon: 'success',
+                text: message,
+                timer: 30000,
+                confirmButtonColor: "#9333ea",
+            })
+        }
 
-    <!-- Bootstrap CSS -->
-    <link href="~/templates/assets/css/bootstrap.min.css" rel="stylesheet" />
+        function newErrorAlert(message, url) {
+            Swal.fire({
+                icon: 'error',
+                text: message,
+                timer: 30000,
+                confirmButtonColor: "#9333ea",
+            }).then(function () {
+                location.href = url;
+            })
+        }
 
+        function newSuccessAlert(message, url) {
+            Swal.fire({
+                icon: 'success',
+                text: message,
+                confirmButtonColor: "#9333ea",
+            }).then((isConfirm) => {
+                if (isConfirm) {
+                    location.reload(url);
+                }
+            })
 
-    <!-- Feather CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/icons/feather/feather.css">
+        }
+        function successAlertWithRedirect(message, url) {
+            Swal.fire({
+                title: "Success",
+                text: message,
+                icon: "success",
+                timer: 30000,
+                overlay: "background - color: rgba(43, 165, 137, 0.45)",
+                confirmButtonColor: "#9333ea",
+            }).then(function () {
 
-    <!-- Tabler Icon CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/tabler-icons/tabler-icons.css">
+                location.href = url;
+            })
+        }
 
-    <!-- Select2 CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/select2/css/select2.min.css">
-
-    <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/fontawesome/css/fontawesome.min.css">
-    <link rel="stylesheet" href="~/templates/assets/plugins/fontawesome/css/all.min.css">
-
-    <!-- Datetimepicker CSS -->
-    <link rel="stylesheet" href="~/templates/assets/css/bootstrap-datetimepicker.min.css">
-
-    <!-- Bootstrap Tagsinput CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
-
-    <!-- Summernote CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/summernote/summernote-lite.min.css">
-
-    <!-- Daterangepikcer CSS -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/daterangepicker/daterangepicker.css">
-
-    <!-- Color Picker Css -->
-    <link rel="stylesheet" href="~/templates/assets/plugins/flatpickr/flatpickr.min.css">
-    <link rel="stylesheet" href="~/templates/assets/plugins/@@simonwep/pickr/themes/nano.min.css">
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="~/templates/assets/css/style.css">
+        function successAlertWithFunction(message, action) {
+            Swal.fire({
+                title: "Success",
+                text: message,
+                icon: "success",
+                timer: 30000,
+                overlay: "background - color: rgba(43, 165, 137, 0.45)",
+                confirmButtonColor: "#9333ea",
+            }).then(function () {
+                action;
+            })
+        }
+    </script>
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-                    <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="site Logo" class="img-fluid"
-                         style="height: 40px; width: auto; margin-right: 10px;">
+<body class="index-page">
+    <header id="header" class="header fixed-top">
+        <div class="container-fluid container-xl position-relative">
+            <div class="top-row d-flex align-items-center justify-content-between">
+                <a href="/Home/Index" class="logo d-flex align-items-center">
+                    <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="sitelogo">
                     <span>E-Douglas</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+                <div class="d-flex align-items-center">
+                    <div class="social-links">
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    </div>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container-fluid">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - E_Douglas_Portal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
+
+        <div class="nav-wrap">
+            <div class="container d-flex justify-content-center position-relative">
+                <nav id="navmenu" class="navmenu d-flex align-items-center">
+                    <ul>
+                        <li><a href="~/Home/Index" class="active">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="/Home/Privacy">Policy</a></li>
+                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="main" style="margin-top:90px">
+        @RenderBody()
+    </main>
+
+    <footer id="footer" class="footer dark-background">
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-4">
+                    <div class="footer-content">
+                        <a href="~/Home/Index" class="logo d-flex align-items-center mb-3">
+                            <span class="sitename">Apparcus</span>
+                        </a>
+                        <p class="mb-4">
+                            Apparcus helps users to keep accurate records of joint contributions.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-6">
+                    <div class="footer-links">
+                        <h5>Company</h5>
+                        <ul>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> About Us</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="footer-contact">
+                        <h5>Get in Touch</h5>
+                        <p><i class="bi bi-geo-alt"></i> 42 Allen Avenue, Lagos, Nigeria</p>
+                        <p><i class="bi bi-envelope"></i>  apparcusofficial@gmail.com</p>
+                        <p><i class="bi bi-telephone"></i> +234 811 537 9302, +234 816 225 7343, +234 703 533 4235</p>
+                        <div class="social-links mt-3">
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+
+    <script src="~/template/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="~/leadpage/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/leadpage/assets/vendor/aos/aos.js"></script>
+    <script src="~/leadpage/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/leadpage/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@@srexi/purecounterjs@1.5.0/dist/purecounter_vanilla.js"></script>
+    <script src="~/template/assets/plugins/select2/js/select2.min.js"></script>
+    <script src="~/leadpage/assets/js/main.js"></script>
+    <script src="~/js/sweetalert2.all.min.js"></script>
+    <script src="~/js/main.js?v=@randomStr"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

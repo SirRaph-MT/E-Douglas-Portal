@@ -1,31 +1,267 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<main class="mainbody">
-    <div class="logo">
-        <img src="Images/EDOUGLAS ACADEMY LOGO.jpg" alt="logo" width="100  ">
+<style>
+
+    .icon-circle {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .hover-up {
+        transition: all 0.3s ease;
+    }
+
+        .hover-up:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+    .why-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+    .testimonial-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+    .stars i {
+        color: #FFD700; /* Yellow stars */
+        font-size: 1rem;
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+        background-size: 50% 50%;
+    }
+</style>
+<section id="hero" class="hero section dark-background">
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="~/video/vecteezy_tashkent-uzbekistan-8-4-2022-close-up-of-hands-of-people_42649759.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
     </div>
-    <div class="intro">
-        <h1>Welcome to E-Douglas Academy</h1>
-        <div class="intro-anim">
-            <div class="intro-dot"></div>
-            <div class="intro-line"></div>
+
+    <div class="hero-content">
+        <div class="container position-relative text-center">
+            <div class="col-lg-8 mx-auto">
+                <h1 data-aos="fade-up" data-aos-delay="100">
+                    Learn Digital Skills<br><span style="color:#15037A">That Open Real Opportunities</span>
+                </h1>
+                <p data-aos="fade-up" data-aos-delay="200" class="lead">
+                    Practical computer training designed to prepare you for today’s tech-driven world.
+                </p>
+                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                    <a href="/Account/Register" class="btn btn-primary btn-lg">Enroll Now</a>
+                </div>
+            </div>
         </div>
-        <p>
-            This is where innovation meets learning. <br>
-            We are dedicated to empowering minds and inspiring success
-            through quality education and cutting-edge resources.
-        </p>
     </div>
-    <div class="text-center">
-        <a href="#" class="btn btn-primary btn-md mb-2" 
-        data-bs-toggle="modal" data-bs-target="#add_leaves"><i class="ti ti-square-rounded-plus me-1"></i>
-        Join Us</a>
+</section>
+
+<section id="how" class="section py-5 bg-light">
+    <div class="container section-title text-center" data-aos="fade-up">
+        <span class="subtitle">Simple Learning Path</span>
+        <h2 class="fw-bold">How It Works</h2>
+        <p class="text-muted">Start learning digital skills in 3 clear steps.</p>
     </div>
-    <div class="social-icons">
-        <a href="https://wa.me/2348123490936" class="whatsapp-btn" target="_blank" title="Chat on WhatsApp">
-            <i class="fab fa-whatsapp"></i>
-        </a>
+
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card border-0 shadow-sm p-4 text-center h-100 hover-up">
+                    <div class="icon-circle mb-3 bg-primary text-white mx-auto">
+                        <i class="bi bi-person-plus-fill fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold">1. Register</h5>
+                    <p class="text-muted">Sign up and choose a course that matches your career goals.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card border-0 shadow-sm p-4 text-center h-100 hover-up">
+                    <div class="icon-circle mb-3 bg-success text-white mx-auto">
+                        <i class="bi bi-laptop-fill fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold">2. Learn Practically</h5>
+                    <p class="text-muted">Attend hands-on classes guided by experienced instructors.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card border-0 shadow-sm p-4 text-center h-100 hover-up">
+                    <div class="icon-circle mb-3 bg-warning text-white mx-auto">
+                        <i class="bi bi-award-fill fs-3"></i>
+                    </div>
+                    <h5 class="fw-semibold">3. Get Certified</h5>
+                    <p class="text-muted">Complete your training and earn a certificate of competence.</p>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</section>
+
+<section id="why" class="section py-5">
+    <div class="container section-title text-center" data-aos="fade-up">
+        <span class="subtitle">Why Choose Us</span>
+        <h2 class="fw-bold">Why Students Choose E-Douglas Academy</h2>
+    </div>
+
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                <div class="why-card text-center p-4">
+                    <i class="bi bi-mortarboard-fill fs-1 text-primary mb-3"></i>
+                    <h6 class="fw-semibold">Industry-Relevant Courses</h6>
+                    <p class="text-muted">Learn skills that align with today’s job market and tech demands.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                <div class="why-card text-center p-4">
+                    <i class="bi bi-person-workspace fs-1 text-success mb-3"></i>
+                    <h6 class="fw-semibold">Expert Instructors</h6>
+                    <p class="text-muted">Get trained by professionals with real-world experience.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="why-card text-center p-4">
+                    <i class="bi bi-lightbulb-fill fs-1 text-warning mb-3"></i>
+                    <h6 class="fw-semibold">Practical Learning</h6>
+                    <p class="text-muted">Hands-on projects that build confidence and competence.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                <div class="why-card text-center p-4">
+                    <i class="bi bi-briefcase-fill fs-1 text-danger mb-3"></i>
+                    <h6 class="fw-semibold">Career Support</h6>
+                    <p class="text-muted">Guidance to help you transition into tech careers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="testimonials" class="section py-5 bg-light">
+    <div class="container">
+        <div class="section-title text-center mb-4" data-aos="fade-up">
+            <h2 class="fw-bold">What Our Students Say</h2>
+            <p class="text-muted">Real experiences from learners trained at E-Douglas Academy.</p>
+        </div>
+
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+
+                <div class="carousel-item active">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="testimonial-card p-4 text-start">
+                                <div class="stars mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="fs-6 text-muted">
+                                    I had no tech background before joining. Now I’m confident using computers professionally.
+                                </p>
+                                <strong>Samuel Ade</strong><br>
+                                <small class="text-muted">March 10, 2024</small>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="testimonial-card p-4 text-start">
+                                <div class="stars mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="fs-6 text-muted">
+                                    The practical classes made learning easy. The instructors are very patient.
+                                </p>
+                                <strong>Blessing Okorie</strong><br>
+                                <small class="text-muted">April 04, 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="testimonial-card p-4 text-start">
+                                <div class="stars mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="fs-6 text-muted">
+                                    I learned web design from scratch and built my first website here.
+                                </p>
+                                <strong>Abdul Musa</strong><br>
+                                <small class="text-muted">May 21, 2024</small>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="testimonial-card p-4 text-start">
+                                <div class="stars mb-2">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="fs-6 text-muted">
+                                    The certificate helped me secure an internship shortly after graduation.
+                                </p>
+                                <strong>Peace Johnson</strong><br>
+                                <small class="text-muted">June 14, 2024</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>

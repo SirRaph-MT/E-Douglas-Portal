@@ -1,4 +1,5 @@
 using Core.DB;
+using Logic.Services;
 using Core.Models;
 using Hangfire;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.RegisterHelpers();
 
 // Register the database context
 builder.Services.AddDbContext<AppDBContext>(options =>

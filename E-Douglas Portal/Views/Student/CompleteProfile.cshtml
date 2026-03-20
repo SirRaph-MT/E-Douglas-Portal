@@ -1,0 +1,38 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Complete Profile";
+}
+<!--This view will be made better, this is just a sketch-->
+@model Core.Models.StudentProfile
+
+<div class="container mt-5">
+    <h2>Complete Your Profile</h2>
+    <form id="completeProfileForm" asp-action="CompleteProfile" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <div class="mb-3">
+            <label>Date of Birth</label>
+            <input class="form-control" asp-for="DateOfBirth" />
+        </div>
+        <div class="mb-3">
+            <label>Sponsor Name</label>
+            <input class="form-control" asp-for="SponsorName" />
+        </div>
+        <div class="mb-3">
+            <label>Sponsor Address</label>
+            <input class="form-control" asp-for="SponsorAddres" />
+        </div>
+        <div class="mb-3">
+            <label>Sponsor Phone</label>
+            <input class="form-control" asp-for="SponsorPhone" />
+        </div>
+        <div class="mb-3">
+            <label>Passport (image)</label>
+            <input class="form-control" type="file" name="passportFile" />
+            @if (!string.IsNullOrEmpty(Model.PassportUrl))
+            {
+                <img src="@Model.PassportUrl" style="max-width:120px;margin-top:10px;" />
+            }
+        </div>
+        <button type="button" id="saveProfileBtn" class="btn btn-primary">Save</button>
+    </form>
+</div>

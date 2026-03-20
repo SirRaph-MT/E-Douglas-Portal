@@ -101,7 +101,12 @@ namespace E_Douglas_Portal.Controllers
             string baseUrl = $"{request.Scheme}://{request.Host}";
 
             _emailTemplateService.SendRegistrationEmail(createStaff, baseUrl);
-            return ResponseHelper.JsonSuccess("Registered successfully");
+
+            // Sign in the user so they can complete their profile immediately
+            await _signInManager.SignInAsync(createStaff, isPersistent: false).ConfigureAwait(false);
+
+            // Redirect to profile completion page
+            return ResponseHelper.JsonSuccessWithReturnUrl("/Student/CompleteProfile");
         }
     }
 }

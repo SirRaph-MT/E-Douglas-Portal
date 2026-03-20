@@ -5,6 +5,7 @@ using Core.ViewModels;
 using Logic.IHelper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Core.DbContext;
 namespace Logic.Helper
 {
     public class UserHelper: IUserHelper
@@ -27,21 +28,17 @@ namespace Logic.Helper
         }
         public string GetValidatedUrl(List<string> roles)
         {
-            var roleUrlMap = new Dictionary<string, string>
-            {
-                { SeedItems.SuperAdminRole, SeedItems.SuperAdminRole },
-                { SeedItems.AdminRole, SeedItems.AdminRole },
-                { SeedItems.UserRole, SeedItems.UserRole }
-            };
-
             foreach (var role in roles)
             {
-                if (roleUrlMap.TryGetValue(role, out var url))
-                {
-                    return url;
-                }
-            }
+                if (role == Constants.SuperAdminRole)
+                    return Constants.SuperAdminDashboard;
 
+                if (role == Constants.AdminRole)
+                    return Constants.AdminDashboard;
+
+                if (role == Constants.UserRole)
+                    return Constants.UserDashboard;
+            }
             return "/Account/Login";
         }
 
@@ -63,6 +60,17 @@ namespace Logic.Helper
                 var addedUserToRole = await _userManager.AddToRoleAsync(user, SeedItems.UserRole).ConfigureAwait(false);
                 if (addedUserToRole.Succeeded)
                 {
+                    // create a StudentProfile linked to the newly created user
+                    var profile = new StudentProfile
+                    {
+                        UserId = user.Id,
+                        DateOfBirth = applicationUserViewModel.DateOfBirth,
+                        // other fields will be filled when the user completes their profile
+                    };
+
+                    await _context.StudentProfiles.AddAsync(profile).ConfigureAwait(false);
+                    await _context.SaveChangesAsync().ConfigureAwait(false);
+
                     return user;
                 }
             }

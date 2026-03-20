@@ -117,3 +117,36 @@ function registerUser() {
         }
     });
 }
+
+//this will refactored to our js pattern later, just want to get it working first
+function saveStudentProfile() {
+    var $btn = $('#saveProfileBtn');
+    $btn.prop('disabled', true).text('Please wait...');
+
+    var form = $('#completeProfileForm')[0];
+    var formData = new FormData(form);
+
+    $.ajax({
+        url: '/Student/CompleteProfile',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (result) {
+            $btn.prop('disabled', false).text('Save');
+            if (!result.isError) {
+                newSuccessAlert(result.msg, result.returnUrl || '/Student/Index');
+            } else {
+                errorAlert(result.msg || 'Unable to save profile');
+            }
+        },
+        error: function () {
+            $btn.prop('disabled', false).text('Save');
+            errorAlert('An error occurred while saving your profile.');
+        }
+    });
+}
+
+$(document).on('click', '#saveProfileBtn', function () {
+    saveStudentProfile();
+});

@@ -108,5 +108,13 @@ namespace E_Douglas_Portal.Controllers
             // Redirect to profile completion page
             return ResponseHelper.JsonSuccessWithReturnUrl("/Student/CompleteProfile");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

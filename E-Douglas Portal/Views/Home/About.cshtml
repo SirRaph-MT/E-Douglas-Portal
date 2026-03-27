@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "About Us";
+}
+
+<style>
+    .about-hero {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        padding: 140px 0 100px;
+        text-align: center;
+    }
+
+    .section-title {
+        color: #00D4FF;
+        font-weight: 600;
+        letter-spacing: 3px;
+    }
+
+    .story-card {
+        background: white;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 15px 40px rgba(21, 3, 122, 0.12);
+    }
+
+    .value-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 20px;
+    }
+
+    .stats-number {
+        font-size: 3.5rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>
+
+<section class="about-hero">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">About E-Douglas Academy</h1>
+        <p class="lead col-lg-8 mx-auto">
+            Empowering Nigerians with practical digital skills that open real career opportunities in today’s tech-driven world.
+        </p>
+    </div>
+</section>
+
+<div class="container py-5">
+
+    <div class="row align-items-center g-5 mb-5">
+        <div class="col-lg-6" data-aos="fade-up">
+            <span class="section-title">OUR STORY</span>
+            <h2 class="display-5 fw-bold mb-4">From a small idea to a movement</h2>
+            <p class="lead text-muted">
+                Founded in Lagos, Nigeria, E-Douglas Academy was born out of the need to bridge the digital skills gap in our country.
+                We believe every Nigerian deserves access to world-class, practical tech training — without leaving home.
+            </p>
+            <p class="text-muted">
+                Today, we have trained over 1,200 students who are now working in tech companies, running their own businesses,
+                and building the future of Nigeria.
+            </p>
+        </div>
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="story-card">
+                <img src="https://picsum.photos/id/1015/800/500" class="img-fluid rounded-3 mb-4" alt="Our Academy">
+                <h5 class="fw-semibold">Our Mission</h5>
+                <p class="mb-0">
+                    To equip 10,000 Nigerians with in-demand digital skills by 2030 through hands-on, affordable, and industry-relevant training.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <div class="text-center mb-5">
+            <span class="section-title">OUR VALUES</span>
+            <h2 class="display-5 fw-bold">What drives us every day</h2>
+        </div>
+
+        <div class="row g-4 text-center">
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-icon"><i class="bi bi-lightbulb"></i></div>
+                <h5 class="fw-semibold">Practical Learning</h5>
+                <p class="text-muted">Theory is good. Hands-on skills are better.</p>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-icon"><i class="bi bi-people"></i></div>
+                <h5 class="fw-semibold">Student First</h5>
+                <p class="text-muted">Every decision we make puts our students first.</p>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-icon"><i class="bi bi-briefcase"></i></div>
+                <h5 class="fw-semibold">Industry Relevant</h5>
+                <p class="text-muted">We teach exactly what employers are looking for today.</p>
+            </div>
+            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="value-icon"><i class="bi bi-globe"></i></div>
+                <h5 class="fw-semibold">Made in Nigeria</h5>
+                <p class="text-muted">Proudly Nigerian, training the next generation of leaders.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light rounded-4 p-5 text-center mb-5">
+        <div class="row g-5">
+            <div class="col-md-3">
+                <div class="stats-number">1,247</div>
+                <p class="mb-0 fw-semibold">Students Trained</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-number">94%</div>
+                <p class="mb-0 fw-semibold">Job Placement Rate</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-number">28</div>
+                <p class="mb-0 fw-semibold">Certified Instructors</p>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-number">18</div>
+                <p class="mb-0 fw-semibold">Courses Offered</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center py-5">
+        <h2 class="fw-bold mb-3">Ready to join the movement?</h2>
+        <p class="lead text-muted mb-4">Your digital future starts here.</p>
+        <a href="/Account/Register" class="btn btn-primary btn-lg px-5 py-3 magic-btn">
+            Enroll Now – Start Your Journey Today
+        </a>
+    </div>
+
+</div>

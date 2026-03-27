@@ -4,7 +4,7 @@ namespace Core.DbContext
 	public class Constants
 	{
 		public static string SuperAdminDashboard = "/SuperAdmin/Index";
-		public static string AdminDashboard = "/Admin/Index";
+		public static string AdminDashboard = "/Admin/Dashboard";
 		public static string UserDashboard = "/Student/Index";
 		public static string AdminRole = "Admin";
 		public static string SuperAdminRole = "SuperAdmin";

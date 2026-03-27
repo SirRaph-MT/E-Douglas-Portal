@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Payment Successful";
+}
+
+<style>
+    .success-page {
+        background: linear-gradient(135deg, #0f172a, #10B981);
+        min-height: calc(100vh - 110px);
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    .success-card {
+        background: white;
+        color: #0f172a;
+        border-radius: 28px;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 60px 40px;
+        text-align: center;
+        box-shadow: 0 25px 60px rgba(16, 185, 129, 0.4);
+    }
+
+    .success-icon {
+        font-size: 6rem;
+        color: #10B981;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="success-page">
+    <div class="success-card">
+        <div class="success-icon">🎉</div>
+        <h1 class="fw-bold display-4 mb-3">Payment Successful!</h1>
+        <p class="lead mb-4">Thank you! Your enrollment has been confirmed.</p>
+
+        <div class="bg-light rounded-3 p-4 mb-5">
+            <h5 class="text-success">Transaction Reference</h5>
+            <h4 id="reference" class="fw-bold text-primary">ED-PAY-7843921</h4>
+        </div>
+
+        <a href="/Student/MyCourses" class="btn btn-success btn-lg px-5 py-3">
+            Go to My Courses →
+        </a>
+
+        <p class="text-muted mt-4 small">
+            You will receive a confirmation email shortly.
+        </p>
+    </div>
+</div>
+
+<script>
+    // You can make reference dynamic later
+    document.getElementById('reference').textContent = "ED-PAY-" + Math.floor(Math.random() * 9000000);
+</script>

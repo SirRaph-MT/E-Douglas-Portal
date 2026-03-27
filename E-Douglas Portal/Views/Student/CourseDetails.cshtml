@@ -1,0 +1,227 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Course Details";
+}
+
+<style>
+    .course-page {
+        background: #f8fafc;
+        min-height: calc(100vh - 110px);
+    }
+
+    .sidebar {
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        height: fit-content;
+        position: sticky;
+        top: 120px;
+    }
+
+    .module-header {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        padding: 18px 24px;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .lesson-item {
+        padding: 16px 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .lesson-item:hover {
+            background: #f1f5f9;
+        }
+
+        .lesson-item.active {
+            background: #e0f2fe;
+            border-left: 5px solid #00D4FF;
+        }
+
+    .video-container {
+        background: #0f172a;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(21, 3, 122, 0.25);
+    }
+
+    .video-placeholder {
+        height: 520px;
+        background: linear-gradient(45deg, #15037A, #00D4FF);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.4rem;
+        position: relative;
+    }
+
+        .video-placeholder::after {
+            content: '▶';
+            font-size: 4rem;
+            opacity: 0.9;
+        }
+
+    .progress-header {
+        background: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+</style>
+
+<div class="course-page py-4">
+    <div class="container">
+
+        <!-- Breadcrumb & Title -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <a href="/Student/MyCourses" class="text-muted small">← Back to My Courses</a>
+                <h1 class="fw-bold display-6" id="courseTitle">Web Design Fundamentals</h1>
+            </div>
+            <div class="text-end">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success px-4 py-2">75% Complete</span>
+                    <button onclick="requestCertificate()" class="btn btn-outline-success">
+                        <i class="bi bi-award"></i> Request Certificate
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- MAIN CONTENT -->
+            <div class="col-lg-8">
+
+                <!-- Video Player -->
+                <div class="video-container mb-4">
+                    <div class="video-placeholder" id="videoArea">
+                        <div class="text-center">
+                            <h4>Lesson 4: CSS Flexbox & Grid</h4>
+                            <p class="lead mb-0">Watch the video below (demo placeholder)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson Info -->
+                <div class="bg-white p-5 rounded-3 shadow-sm">
+                    <h3 class="fw-semibold mb-3">Current Lesson: CSS Flexbox & Grid</h3>
+                    <p class="text-muted">Learn how to create responsive layouts using modern CSS techniques. This lesson includes hands-on projects.</p>
+
+                    <div class="d-flex gap-3 mt-4">
+                        <button onclick="markAsCompleted()" class="btn btn-success px-5 py-3 fw-semibold">
+                            <i class="bi bi-check-circle"></i> Mark as Completed
+                        </button>
+                        <button onclick="nextLesson()" class="btn btn-primary px-5 py-3 fw-semibold">
+                            Next Lesson →
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SIDEBAR: Modules & Lessons -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+
+                    <div class="module-header">
+                        <h5 class="mb-0">Course Modules (4)</h5>
+                        <small>Web Design Fundamentals</small>
+                    </div>
+
+                    <div class="p-2">
+
+                        <!-- Module 1 -->
+                        <div class="lesson-item active" onclick="selectLesson(1)">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>Module 1: HTML Basics</strong><br>
+                                    <small class="text-muted">4 lessons • Completed</small>
+                                </div>
+                                <span class="badge bg-success">100%</span>
+                            </div>
+                        </div>
+
+                        <!-- Module 2 -->
+                        <div class="lesson-item" onclick="selectLesson(2)">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>Module 2: CSS Foundations</strong><br>
+                                    <small class="text-muted">5 lessons • In Progress</small>
+                                </div>
+                                <span class="badge bg-primary">60%</span>
+                            </div>
+                        </div>
+
+                        <!-- Module 3 -->
+                        <div class="lesson-item" onclick="selectLesson(3)">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>Module 3: Responsive Design</strong><br>
+                                    <small class="text-muted">3 lessons</small>
+                                </div>
+                                <span class="badge bg-secondary">0%</span>
+                            </div>
+                        </div>
+
+                        <!-- Module 4 -->
+                        <div class="lesson-item" onclick="selectLesson(4)">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <strong>Module 4: Advanced Layouts</strong><br>
+                                    <small class="text-muted">Currently learning</small>
+                                </div>
+                                <i class="bi bi-play-circle-fill text-primary"></i>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fake lesson selection
+    function selectLesson(id) {
+        document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        // Simulate video title change
+        document.getElementById('videoArea').innerHTML = `
+            <div class="text-center p-5">
+                <h4>Now Playing: Lesson ${id}</h4>
+                <p class="lead">Video content would load here in production</p>
+                <div class="mt-4">
+                    <button class="btn btn-light btn-lg">Play Video</button>
+                </div>
+            </div>`;
+    }
+
+    // Mark lesson complete with animation
+    function markAsCompleted() {
+        const btn = event.currentTarget;
+        btn.innerHTML = `<i class="bi bi-check-circle-fill"></i> Completed!`;
+        btn.classList.add('btn-success');
+
+        setTimeout(() => {
+            successAlert("Lesson marked as completed! Progress updated.");
+            // In real app you would call backend here
+        }, 800);
+    }
+
+    function nextLesson() {
+        successAlert("Moving to next lesson...");
+        // Simulate progress
+        setTimeout(() => location.reload(), 1200);
+    }
+
+    function requestCertificate() {
+        successAlertWithRedirect("Certificate request submitted!", "/Student/Certificate/1");
+    }
+</script>

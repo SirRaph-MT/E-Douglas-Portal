@@ -1,0 +1,146 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Course Details";
+}
+
+<style>
+    .course-hero {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        padding: 120px 0 80px;
+        position: relative;
+    }
+
+    .course-card-main {
+        background: white;
+        border-radius: 28px;
+        box-shadow: 0 25px 60px rgba(21, 3, 122, 0.18);
+        overflow: hidden;
+        margin-top: -80px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .course-image {
+        height: 380px;
+        object-fit: cover;
+    }
+
+    .price-badge {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: #00D4FF;
+        color: #0f172a;
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding: 12px 32px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    }
+
+    .what-you-learn {
+        background: #f8fafc;
+        border-radius: 20px;
+    }
+
+    .enroll-btn {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 18px 48px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
+    }
+
+        .enroll-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 45px rgba(0, 212, 255, 0.5);
+        }
+</style>
+
+<div class="course-hero">
+    <div class="container text-center">
+        <span class="badge bg-white text-primary px-4 py-2 mb-3">Beginner Friendly</span>
+        <h1 class="display-4 fw-bold" id="courseTitle">Web Design Fundamentals</h1>
+        <p class="lead mb-0" id="courseSubtitle">Master modern web design from scratch in just 8 weeks</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="course-card-main">
+
+        <div class="row g-0">
+            <!-- Left Image -->
+            <div class="col-lg-7 position-relative">
+                <img src="https://picsum.photos/id/1015/1200/800" class="course-image w-100" alt="Web Design">
+                <span class="price-badge">₦85,000</span>
+            </div>
+
+            <!-- Right Info -->
+            <div class="col-lg-5 p-5">
+                <div class="d-flex gap-3 mb-4">
+                    <div><i class="bi bi-clock"></i> 8 Weeks</div>
+                    <div><i class="bi bi-calendar"></i> Twice a week</div>
+                    <div><i class="bi bi-people"></i> 15 Students max</div>
+                </div>
+
+                <h4 class="fw-semibold">Next Batch Starts</h4>
+                <p class="fs-3 fw-bold text-primary mb-4">April 8, 2026</p>
+
+                <a href="/Account/Register" class="enroll-btn text-white d-block text-center mb-4">
+                    Enroll Now – Limited Seats!
+                </a>
+
+                <small class="text-muted">or <a href="/Account/Login" class="text-primary">Login if you already have an account</a></small>
+            </div>
+        </div>
+
+        <!-- Course Content -->
+        <div class="p-5">
+            <h3 class="fw-bold mb-4">What You Will Learn</h3>
+            <div class="row g-4 what-you-learn p-5">
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>HTML5 &amp; Semantic Markup</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>CSS3, Flexbox &amp; Grid</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Responsive &amp; Mobile-First Design</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Figma &amp; UI/UX Principles</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Build 3 Real Portfolio Projects</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Deploy your website live</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Modern tools (Tailwind, Bootstrap)</li>
+                        <li class="mb-3"><i class="bi bi-check-circle-fill text-success me-2"></i>Job-ready portfolio &amp; certificate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Curriculum -->
+            <h3 class="fw-bold mt-5 mb-4">Course Curriculum</h3>
+            <div class="accordion" id="curriculumAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#module1">Module 1: HTML Foundations</button></h2>
+                    <div id="module1" class="accordion-collapse collapse show"><div class="accordion-body">4 lessons • 6 hours</div></div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#module2">Module 2: CSS Mastery</button></h2>
+                    <div id="module2" class="accordion-collapse collapse"><div class="accordion-body">5 lessons • 8 hours</div></div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#module3">Module 3: Responsive Design &amp; Projects</button></h2>
+                    <div id="module3" class="accordion-collapse collapse"><div class="accordion-body">6 lessons • 10 hours</div></div>
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="/Account/Register" class="enroll-btn text-white px-5 py-4">
+                    Secure Your Seat Today
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

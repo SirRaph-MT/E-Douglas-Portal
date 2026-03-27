@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Our Courses";
+}
+
+<style>
+    .courses-hero {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        padding: 100px 0 80px;
+        text-align: center;
+    }
+
+    .course-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e2e8f0;
+    }
+
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.25);
+        }
+
+    .course-image {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .price-tag {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #00D4FF;
+        color: #0f172a;
+        font-weight: 700;
+        padding: 6px 18px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+    }
+
+    .filter-btn {
+        border-radius: 50px;
+        padding: 10px 24px;
+    }
+
+    .enroll-btn {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 12px 32px;
+        font-weight: 600;
+    }
+</style>
+
+<!-- Hero -->
+<section class="courses-hero">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Our Courses</h1>
+        <p class="lead mb-0">Practical digital skills that open real career opportunities</p>
+    </div>
+</section>
+
+<div class="container py-5">
+
+    <!-- Filters -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-5 gap-3">
+        <div class="btn-group" role="group">
+            <button onclick="filterCategory('all')" class="btn btn-outline-primary active filter-btn" id="filter-all">All Courses</button>
+            <button onclick="filterCategory('design')" class="btn btn-outline-primary filter-btn" id="filter-design">Design &amp; Web</button>
+            <button onclick="filterCategory('office')" class="btn btn-outline-primary filter-btn" id="filter-office">Microsoft Office</button>
+            <button onclick="filterCategory('marketing')" class="btn btn-outline-primary filter-btn" id="filter-marketing">Digital Marketing</button>
+            <button onclick="filterCategory('basics')" class="btn btn-outline-primary filter-btn" id="filter-basics">Computer Basics</button>
+        </div>
+
+        <input type="text" id="searchInput" placeholder="Search courses..."
+               class="form-control" style="max-width: 320px; border-radius: 50px;"
+               onkeyup="filterCourses()">
+    </div>
+
+    <div class="row g-4" id="coursesContainer">
+    </div>
+
+</div>
+
+<script>
+    let allCourses = [
+        {
+            id: 1,
+            title: "Web Design Fundamentals",
+            category: "design",
+            image: "https://picsum.photos/id/1015/800/400",
+            duration: "8 Weeks",
+            price: "₦85,000",
+            level: "Beginner",
+            description: "Master HTML, CSS, and modern design tools."
+        },
+        {
+            id: 2,
+            title: "Microsoft Office Mastery",
+            category: "office",
+            image: "https://picsum.photos/id/201/800/400",
+            duration: "6 Weeks",
+            price: "₦65,000",
+            level: "Beginner",
+            description: "Become proficient in Word, Excel, PowerPoint &amp; more."
+        },
+        {
+            id: 3,
+            title: "Digital Marketing Essentials",
+            category: "marketing",
+            image: "https://picsum.photos/id/180/800/400",
+            duration: "10 Weeks",
+            price: "₦95,000",
+            level: "Intermediate",
+            description: "Learn SEO, Social Media, Google Ads &amp; Content Strategy."
+        },
+        {
+            id: 4,
+            title: "Computer Appreciation &amp; Basics",
+            category: "basics",
+            image: "https://picsum.photos/id/237/800/400",
+            duration: "4 Weeks",
+            price: "₦45,000",
+            level: "Beginner",
+            description: "Perfect for absolute beginners with no prior experience."
+        }
+    ];
+
+    function renderCourses(courses) {
+        const container = document.getElementById('coursesContainer');
+        container.innerHTML = courses.map(course => `
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card position-relative">
+                    <img src="${course.image}" class="course-image w-100" alt="${course.title}">
+                    <span class="price-tag">${course.price}</span>
+
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge bg-light text-dark">${course.duration}</span>
+                            <span class="badge bg-primary">${course.level}</span>
+                        </div>
+                        <h5 class="fw-semibold">${course.title}</h5>
+                        <p class="text-muted small">${course.description}</p>
+
+                        <a href="/Home/CourseDetails/${course.id}" class="enroll-btn text-white w-100 d-block text-center">
+                            Enroll Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function filterCategory(category) {
+        document.querySelectorAll('.btn-group button').forEach(btn => btn.classList.remove('active'));
+
+        if (category === 'all') {
+            document.getElementById('filter-all').classList.add('active');
+            renderCourses(allCourses);
+        } else {
+            document.getElementById('filter-' + category).classList.add('active');
+            renderCourses(allCourses.filter(c => c.category === category));
+        }
+    }
+
+    function filterCourses() {
+        const term = document.getElementById('searchInput').value.toLowerCase().trim();
+        if (!term) {
+            renderCourses(allCourses);
+            return;
+        }
+        const filtered = allCourses.filter(c =>
+            c.title.toLowerCase().includes(term) ||
+            c.description.toLowerCase().includes(term)
+        );
+        renderCourses(filtered);
+    }
+
+    window.onload = () => renderCourses(allCourses);
+</script>

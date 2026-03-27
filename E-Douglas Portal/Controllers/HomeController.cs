@@ -22,6 +22,19 @@ namespace E_Douglas_Portal.Controllers
         {
             return View();
         }
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult CourseDetails()
+        {
+            return View();
+        }
+        public IActionResult Courses()
+        {
+            return View("~/Views/Home/Courses.cshtml");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

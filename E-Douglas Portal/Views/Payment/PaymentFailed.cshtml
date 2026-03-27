@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Payment Failed";
+}
+
+<style>
+    .failed-page {
+        background: linear-gradient(135deg, #0f172a, #ef4444);
+        min-height: calc(100vh - 110px);
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    .failed-card {
+        background: white;
+        color: #0f172a;
+        border-radius: 28px;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 60px 40px;
+        text-align: center;
+        box-shadow: 0 25px 60px rgba(239, 68, 68, 0.4);
+    }
+
+    .failed-icon {
+        font-size: 6rem;
+        color: #ef4444;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="failed-page">
+    <div class="failed-card">
+        <div class="failed-icon">❌</div>
+        <h1 class="fw-bold display-4 mb-3">Payment Failed</h1>
+        <p class="lead mb-4">Something went wrong with your payment.</p>
+
+        <div class="bg-light rounded-3 p-4 mb-5">
+            <p class="text-danger fw-semibold">Please try again or use a different payment method.</p>
+        </div>
+
+        <a href="/Payment/Checkout" class="btn btn-danger btn-lg px-5 py-3 me-3">
+            Try Again
+        </a>
+        <a href="/Student/MyCourses" class="btn btn-outline-secondary btn-lg px-5 py-3">
+            Back to My Courses
+        </a>
+    </div>
+</div>

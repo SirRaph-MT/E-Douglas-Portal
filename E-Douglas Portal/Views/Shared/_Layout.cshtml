@@ -1,216 +1,204 @@
-﻿@{
+﻿
+@{
     var randomStr = DateTime.Now.ToString().ToLower().Replace(":", "").Replace("pm", "").Replace("am", "");
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>@ViewData["Title"] - E_Douglas computer training center</title>
+    <title>@ViewData["Title"] - E-Douglas Academy</title>
 
-    <link href="~/leadpage/assets/img/Apparcus logo.jpg" rel="icon">
-    <link href="~/leadpage/assets/img/Apparcus logo.jpg" rel="apple-touch-icon">
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="~/Images/EDOUGLAS ACADEMY LOGO.jpg" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
     <link href="~/leadpage/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/leadpage/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
     <link href="~/leadpage/assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link href="~/leadpage/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="~/leadpage/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
     <link href="~/leadpage/assets/css/main.css" rel="stylesheet" />
     <link href="~/css/sweetalert2.css" rel="stylesheet" />
 
-    <script>
-        function errorAlert(message) {
-            Swal.fire({
-                icon: 'error',
-                text: message,
-                timer: 60000,
-                confirmButtonColor: "#9333ea",
-            })
+    <style>
+        :root {
+            --primary: #15037A;
+            --accent: #00D4FF;
+            --dark: #0F172A;
         }
 
-        function infoAlert(message) {
-            Swal.fire({
-                icon: 'info',
-                text: message,
-                timer: 30000,
-                confirmButtonColor: "#9333ea",
-            })
+        body {
+            font-family: 'Inter', sans-serif;
         }
 
-        function infoAlertWithStyles(message) {
-            Swal.fire({
-                title: 'Incomplete Payment',
-                icon: 'info',
-                text: message,
-                confirmButtonColor: "#9333ea",
-            })
-        }
-        function newInfoAlert(message, url) {
-            Swal.fire({
-                icon: 'info',
-                text: message,
-                timer: 30000,
-                confirmButtonColor: "#9333ea",
-            }).then((isConfirm) => {
-                if (isConfirm) {
-                    location.href = url;
-                }
-            })
-        }
-        function successAlert(message) {
-            Swal.fire({
-                icon: 'success',
-                text: message,
-                timer: 30000,
-                confirmButtonColor: "#9333ea",
-            })
+        .logo-img {
+            height: 48px;
+            filter: drop-shadow(0 4px 8px rgba(21, 3, 122, 0.3));
+            transition: all 0.3s ease;
         }
 
-        function newErrorAlert(message, url) {
-            Swal.fire({
-                icon: 'error',
-                text: message,
-                timer: 30000,
-                confirmButtonColor: "#9333ea",
-            }).then(function () {
-                location.href = url;
-            })
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, #15037A, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        function newSuccessAlert(message, url) {
-            Swal.fire({
-                icon: 'success',
-                text: message,
-                confirmButtonColor: "#9333ea",
-            }).then((isConfirm) => {
-                if (isConfirm) {
-                    location.reload(url);
-                }
-            })
-
-        }
-        function successAlertWithRedirect(message, url) {
-            Swal.fire({
-                title: "Success",
-                text: message,
-                icon: "success",
-                timer: 30000,
-                overlay: "background - color: rgba(43, 165, 137, 0.45)",
-                confirmButtonColor: "#9333ea",
-            }).then(function () {
-
-                location.href = url;
-            })
+        /* NAVBAR */
+        .header {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
         }
 
-        function successAlertWithFunction(message, action) {
-            Swal.fire({
-                title: "Success",
-                text: message,
-                icon: "success",
-                timer: 30000,
-                overlay: "background - color: rgba(43, 165, 137, 0.45)",
-                confirmButtonColor: "#9333ea",
-            }).then(function () {
-                action;
-            })
+        .navmenu a {
+            color: white !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
         }
-    </script>
+
+            .navmenu a:hover,
+            .navmenu a.active {
+                color: #00D4FF !important;
+            }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #15037A, #00D4FF);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 28px;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #0F172A;
+        }
+
+            .footer .logo-text {
+                font-size: 1.8rem;
+            }
+
+        .magic-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+            .magic-btn:hover {
+                transform: translateY(-3px) scale(1.05);
+                box-shadow: 0 10px 25px rgba(0, 212, 255, 0.3);
+            }
+    </style>
 </head>
 <body class="index-page">
+
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl position-relative">
-            <div class="top-row d-flex align-items-center justify-content-between">
+            <div class="top-row d-flex align-items-center justify-content-between py-2">
                 <a href="/Home/Index" class="logo d-flex align-items-center">
-                    <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="sitelogo">
-                    <span>E-Douglas</span>
+                    <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="E-Douglas Academy" class="logo-img me-3">
+                    <span class="logo-text">E-Douglas</span>
                 </a>
 
                 <div class="d-flex align-items-center">
-                    <div class="social-links">
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <div class="social-links me-4">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="nav-wrap">
-            <div class="container d-flex justify-content-center position-relative">
-                <nav id="navmenu" class="navmenu d-flex align-items-center">
-                    <ul>
-                        <li><a href="~/Home/Index" class="active">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Services</a></li>
-                        <li><a href="/Home/Privacy">Policy</a></li>
-                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-                    </ul>
-                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-                </nav>
+            <div class="nav-wrap">
+                <div class="container d-flex justify-content-center position-relative">
+                    <nav id="navmenu" class="navmenu d-flex align-items-center">
+                        <ul>
+                            <li><a href="/Home/Index" class="active">Home</a></li>
+                            <li><a href="/Home/About">About</a></li>
+                            <li><a href="/Home/Courses">Courses</a></li>
+                            <li><a href="/Home/Policy">Policy</a></li>
+                            <li><a href="/Account/Login">Login</a></li>
+                        </ul>
+                        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                    </nav>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="main" style="margin-top:90px">
+    <main class="main" style="margin-top: 110px;">
         @RenderBody()
     </main>
 
-    <footer id="footer" class="footer dark-background">
+    <!-- FOOTER -->
+    <footer id="footer" class="footer">
         <div class="container">
             <div class="row gy-5">
                 <div class="col-lg-4">
                     <div class="footer-content">
-                        <a href="~/Home/Index" class="logo d-flex align-items-center mb-3">
-                            <span class="sitename">Apparcus</span>
+                        <a href="/Home/Index" class="logo d-flex align-items-center mb-3">
+                            <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="" class="logo-img me-3" style="height:42px;">
+                            <span class="logo-text">E-Douglas Academy</span>
                         </a>
-                        <p class="mb-4">
-                            Apparcus helps users to keep accurate records of joint contributions.
+                        <p class="mb-4 text-light">
+                            Empowering the next generation with practical digital skills for today's tech-driven world.
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-6">
+
+                <div class="col-lg-2 col-6">
                     <div class="footer-links">
-                        <h5>Company</h5>
+                        <h5 class="text-white">Company</h5>
                         <ul>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> About Us</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Contact</a></li>
+                            <li><a href="/Home/About" class="text-light">About Us</a></li>
+                            <li><a href="/Home/Courses" class="text-light">Our Courses</a></li>
+                            <li><a href="#" class="text-light">Success Stories</a></li>
+                            <li><a href="#" class="text-light">Blog</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-6">
+                    <div class="footer-links">
+                        <h5 class="text-white">Quick Links</h5>
+                        <ul>
+                            <li><a href="/Account/Register" class="text-light">Enroll Now</a></li>
+                            <li><a href="/Student/Dashboard" class="text-light">Student Portal</a></li>
+                            <li><a href="#" class="text-light">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-lg-4">
                     <div class="footer-contact">
-                        <h5>Get in Touch</h5>
-                        <p><i class="bi bi-geo-alt"></i> 42 Allen Avenue, Lagos, Nigeria</p>
-                        <p><i class="bi bi-envelope"></i>  apparcusofficial@gmail.com</p>
-                        <p><i class="bi bi-telephone"></i> +234 811 537 9302, +234 816 225 7343, +234 703 533 4235</p>
-                        <div class="social-links mt-3">
-                            <a href="#"><i class="bi bi-facebook"></i></a>
-                            <a href="#"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <h5 class="text-white">Get in Touch</h5>
+                        <p class="text-light"><i class="bi bi-geo-alt me-2"></i>42 Allen Avenue, Ikeja, Lagos, Nigeria</p>
+                        <p class="text-light"><i class="bi bi-envelope me-2"></i>info@edouglasacademy.ng</p>
+                        <p class="text-light"><i class="bi bi-telephone me-2"></i>+234 811 537 9302 • +234 816 225 7343</p>
+
+                        <div class="social-links mt-4">
+                            <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+            <div class="text-center mt-5 pt-4 border-top border-light border-opacity-10">
+                <small class="text-light">&copy; 2026 E-Douglas Academy. All Rights Reserved.</small>
+            </div>
+        </div>
     </footer>
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
         <i class="bi bi-arrow-up-short"></i>
     </a>
 
-    <script src="~/template/assets/js/jquery-3.7.1.min.js"></script>
+    <!-- Scripts -->
     <script src="~/leadpage/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/leadpage/assets/vendor/aos/aos.js"></script>
-    <script src="~/leadpage/assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="~/leadpage/assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@@srexi/purecounterjs@1.5.0/dist/purecounter_vanilla.js"></script>
-    <script src="~/template/assets/plugins/select2/js/select2.min.js"></script>
     <script src="~/leadpage/assets/js/main.js"></script>
     <script src="~/js/sweetalert2.all.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

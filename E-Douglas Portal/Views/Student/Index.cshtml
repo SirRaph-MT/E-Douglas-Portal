@@ -1,4 +1,209 @@
-﻿<div>
-    <h1>Student Index</h1>
-    <p>Welcome to the Student Index page!</p>
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<style>
+    .dashboard-hero {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        border-radius: 24px;
+        padding: 40px 50px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .dashboard-hero::after {
+            content: '';
+            position: absolute;
+            right: -30px;
+            top: -30px;
+            width: 180px;
+            height: 180px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+
+    .stat-card {
+        border-radius: 20px;
+        transition: all 0.4s ease;
+        border: none;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(21, 3, 122, 0.15);
+        }
+
+    .course-card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        border: 1px solid #e2e8f0;
+    }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.2);
+        }
+
+    .progress-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1.4rem;
+        background: conic-gradient(#00D4FF 0% 65%, #e2e8f0 65% 100%);
+    }
+
+    .btn-magic-small {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 24px;
+        font-size: 0.95rem;
+    }
+</style>
+
+<div class="container py-4">
+
+    <!-- Welcome Banner -->
+    <div class="dashboard-hero" data-aos="fade-up">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-5 fw-bold mb-2">Welcome back, <span id="studentName">Samuel</span>! 👋</h1>
+                <p class="lead mb-0">You're making great progress. Let's keep the momentum going!</p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+                <a href="/Student/MyCourses" class="btn btn-light btn-lg px-5 py-3 fw-semibold">
+                    View All My Courses →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+            <div class="stat-card bg-white p-4 shadow-sm text-center">
+                <i class="bi bi-book-fill fs-1 text-primary mb-3"></i>
+                <h3 class="fw-bold mb-1">4</h3>
+                <p class="text-muted mb-0">Enrolled Courses</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+            <div class="stat-card bg-white p-4 shadow-sm text-center">
+                <i class="bi bi-graph-up fs-1 text-success mb-3"></i>
+                <h3 class="fw-bold mb-1">68%</h3>
+                <p class="text-muted mb-0">Average Progress</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+            <div class="stat-card bg-white p-4 shadow-sm text-center">
+                <i class="bi bi-award-fill fs-1 text-warning mb-3"></i>
+                <h3 class="fw-bold mb-1">2</h3>
+                <p class="text-muted mb-0">Certificates Earned</p>
+            </div>
+        </div>
+        <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+            <div class="stat-card bg-white p-4 shadow-sm text-center">
+                <i class="bi bi-clock-history fs-1 text-info mb-3"></i>
+                <h3 class="fw-bold mb-1">12</h3>
+                <p class="text-muted mb-0">Hours Learned</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- My Courses -->
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <h2 class="fw-bold">My Courses</h2>
+        <a href="/Student/MyCourses" class="text-primary fw-semibold">View all courses →</a>
+    </div>
+
+    <div class="row g-4" id="coursesContainer">
+        <!-- Populated by JavaScript (sample data below) -->
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="mt-5">
+        <h2 class="fw-bold mb-4">Recent Activity</h2>
+        <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <div>
+                    <i class="bi bi-check-circle-fill text-success me-3"></i>
+                    Completed <strong>Module 4: CSS Flexbox</strong> in Web Design Fundamentals
+                </div>
+                <small class="text-muted">2 hours ago</small>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <div>
+                    <i class="bi bi-play-circle-fill text-primary me-3"></i>
+                    Started new lesson: <strong>Introduction to JavaScript</strong>
+                </div>
+                <small class="text-muted">Yesterday</small>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center py-3">
+                <div>
+                    <i class="bi bi-award-fill text-warning me-3"></i>
+                    Certificate approved for <strong>Computer Appreciation</strong>
+                </div>
+                <small class="text-muted">3 days ago</small>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<script>
+    // Sample courses – later you can replace with real API call
+    const myCourses = [
+        {
+            title: "Web Design Fundamentals",
+            progress: 75,
+            image: "https://picsum.photos/id/1015/600/300",
+            color: "#00D4FF"
+        },
+        {
+            title: "Microsoft Office Mastery",
+            progress: 40,
+            image: "https://picsum.photos/id/201/600/300",
+            color: "#15037A"
+        },
+        {
+            title: "Digital Marketing Essentials",
+            progress: 90,
+            image: "https://picsum.photos/id/237/600/300",
+            color: "#10B981"
+        }
+    ];
+
+    function renderCourses() {
+        const container = document.getElementById('coursesContainer');
+        container.innerHTML = myCourses.map(course => `
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card bg-white">
+                    <img src="${course.image}" class="w-100" style="height: 160px; object-fit: cover;" alt="">
+                    <div class="p-4">
+                        <h5 class="fw-semibold">${course.title}</h5>
+                        <div class="d-flex align-items-center gap-3 mt-3">
+                            <div class="progress-circle" style="background: conic-gradient(${course.color} 0% ${course.progress}%, #e2e8f0 ${course.progress}% 100%); color: #0f172a;">
+                                ${course.progress}%
+                            </div>
+                            <div class="flex-grow-1">
+                                <a href="/Student/CourseDetails" class="btn btn-magic-small text-white w-100">Continue Learning</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Initialize
+    window.onload = renderCourses;
+</script>

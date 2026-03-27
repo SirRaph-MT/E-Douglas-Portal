@@ -1,0 +1,165 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Course Progress";
+}
+
+<style>
+    .progress-page {
+        background: #f8fafc;
+        min-height: calc(100vh - 110px);
+        padding: 40px 0;
+    }
+
+    .overall-circle {
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        font-weight: 700;
+        background: conic-gradient(#00D4FF 0% 78%, #e2e8f0 78% 100%);
+        box-shadow: 0 0 60px rgba(0, 212, 255, 0.4);
+    }
+
+    .module-card {
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(21, 3, 122, 0.15);
+        }
+
+    .status-complete {
+        background: linear-gradient(90deg, #10B981, #34d399);
+        color: white;
+    }
+
+    .btn-magic {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 14px 32px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="progress-page">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <a href="/Student/MyCourses" class="text-muted small">← Back to My Courses</a>
+                <h1 class="fw-bold display-5" id="courseName">Web Design Fundamentals</h1>
+                <p class="text-muted lead mb-0">Your learning journey at a glance</p>
+            </div>
+            <div class="text-end">
+                <button onclick="goToCourse()" class="btn btn-magic text-white">
+                    <i class="bi bi-play-circle"></i> Continue Learning
+                </button>
+            </div>
+        </div>
+
+        <div class="row g-5">
+
+            <!-- OVERALL PROGRESS -->
+            <div class="col-lg-4">
+                <div class="bg-white rounded-4 shadow-sm p-5 text-center">
+                    <h4 class="fw-semibold text-muted mb-4">Overall Progress</h4>
+                    <div class="overall-circle mx-auto mb-4" id="overallProgressCircle">
+                        78%
+                    </div>
+                    <p class="fs-5 fw-semibold text-success mb-1">Great job! You're ahead of schedule.</p>
+                    <small class="text-muted">4 modules • 18 lessons</small>
+
+                    <div class="mt-5 pt-5 border-top">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Hours spent learning</span>
+                            <strong>24.5 hrs</strong>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Certificates earned</span>
+                            <strong class="text-warning">1</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODULE BREAKDOWN -->
+            <div class="col-lg-8">
+                <h4 class="fw-semibold mb-4">Module Progress</h4>
+                <div class="row g-4" id="modulesContainer">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CERTIFICATE TEASER -->
+        <div class="mt-5 bg-white rounded-4 shadow-sm p-5 text-center">
+            <div class="d-flex align-items-center justify-content-center gap-4 flex-wrap">
+                <i class="bi bi-award-fill fs-1 text-warning"></i>
+                <div>
+                    <h4 class="fw-bold mb-1">Almost there! 🎉</h4>
+                    <p class="mb-3 text-muted">Complete the last module to unlock your official certificate</p>
+                </div>
+                <button onclick="requestCertificate()" class="btn btn-magic text-white px-5 py-3">
+                    Request Certificate Preview
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Sample modules data
+    const modules = [
+        { name: "HTML Basics", progress: 100, completed: true, lessons: 4 },
+        { name: "CSS Foundations", progress: 100, completed: true, lessons: 5 },
+        { name: "Responsive Design", progress: 85, completed: false, lessons: 3 },
+        { name: "Advanced Layouts (Flexbox & Grid)", progress: 45, completed: false, lessons: 6 }
+    ];
+
+    function renderModules() {
+        const container = document.getElementById('modulesContainer');
+        container.innerHTML = modules.map((mod, index) => `
+            <div class="col-md-6">
+                <div class="module-card bg-white p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h5 class="fw-semibold">${mod.name}</h5>
+                            <small class="text-muted">${mod.lessons} lessons</small>
+                        </div>
+                        ${mod.completed
+                            ? `<span class="badge status-complete px-4 py-2 rounded-pill">Completed</span>`
+                            : `<span class="badge bg-primary px-4 py-2 rounded-pill">${mod.progress}%</span>`}
+                    </div>
+                    <div class="mt-4">
+                        <div class="progress-bar bg-light rounded-pill" style="height:10px">
+                            <div class="progress-fill" style="width:${mod.progress}%; background: linear-gradient(90deg, #15037A, #00D4FF);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function requestCertificate() {
+        successAlertWithRedirect(
+            "Certificate request submitted successfully! 🎓",
+            "/Student/Certificate/1"
+        );
+    }
+
+    function goToCourse() {
+        window.location.href = "/Student/CourseDetails/1";
+    }
+
+    // Initialize
+    window.onload = renderModules;
+</script>

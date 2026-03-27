@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Create New Course";
+}
+
+<style>
+    .admin-page {
+        background: #0f172a;
+        color: #f8fafc;
+        min-height: calc(100vh - 110px);
+        padding: 40px 0;
+    }
+
+    .form-card {
+        background: #1e2937;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 15px 40px rgba(0,212,255,0.15);
+    }
+
+    .form-control, .form-select {
+        background: #334155;
+        border: 2px solid #00D4FF;
+        color: white;
+        border-radius: 12px;
+    }
+
+        .form-control:focus {
+            border-color: #00D4FF;
+            box-shadow: 0 0 0 4px rgba(0,212,255,0.3);
+        }
+</style>
+
+<div class="admin-page">
+    <div class="container">
+        <h1 class="display-5 fw-bold mb-4">Create New Course</h1>
+
+        <div class="form-card">
+            <form id="createCourseForm">
+                <div class="row g-4">
+                    <div class="col-md-8">
+                        <label class="form-label fw-semibold">Course Title</label>
+                        <input type="text" id="title" class="form-control" placeholder="e.g. Web Design Fundamentals" required />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Duration</label>
+                        <input type="text" id="duration" class="form-control" placeholder="8 Weeks" required />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Price (₦)</label>
+                        <input type="number" id="price" class="form-control" placeholder="85000" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Max Students</label>
+                        <input type="number" id="maxStudents" class="form-control" value="20" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label fw-semibold">Course Description</label>
+                        <textarea id="description" class="form-control" rows="5" placeholder="Detailed description..."></textarea>
+                    </div>
+
+                    <div class="col-12 text-end">
+                        <button type="button" onclick="createCourse()" class="btn btn-success px-5 py-3 fw-semibold">
+                            Create Course
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function createCourse() {
+        successAlertWithRedirect("Course created successfully!", "/Course/Index");
+    }
+</script>

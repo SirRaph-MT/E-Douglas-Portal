@@ -1,0 +1,162 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Certificate";
+}
+
+<style>
+    .certificate-page {
+        background: linear-gradient(135deg, #0f172a 0%, #15037a 100%);
+        min-height: calc(100vh - 110px);
+        padding: 60px 0;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .certificate-container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: white;
+        color: #0f172a;
+        border-radius: 30px;
+        box-shadow: 0 30px 80px rgba(0, 212, 255, 0.4);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .certificate-header {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        color: white;
+        padding: 40px 60px;
+        text-align: center;
+    }
+
+    .certificate-body {
+        padding: 70px 80px 60px;
+        text-align: center;
+        position: relative;
+    }
+
+        .certificate-body::before {
+            content: 'E-DOUGLAS ACADEMY';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-12deg);
+            font-size: 5rem;
+            font-weight: 900;
+            opacity: 0.06;
+            color: #15037A;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+    .certificate-text {
+        font-size: 2.8rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 30px 0;
+    }
+
+    .seal {
+        position: absolute;
+        bottom: 60px;
+        right: 80px;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, #ffd700, #f59e0b);
+        border: 8px solid #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: 900;
+        color: #0f172a;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        transform: rotate(15deg);
+    }
+
+    .btn-certificate {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    }
+</style>
+
+<div class="certificate-page">
+    <div class="container">
+        <div class="certificate-container" data-aos="zoom-in">
+
+            <!-- Header -->
+            <div class="certificate-header">
+                <h1 class="display-4 fw-bold mb-0">Certificate of Competence</h1>
+                <p class="lead opacity-90 mt-2">This is to certify that</p>
+            </div>
+
+            <!-- Body -->
+            <div class="certificate-body">
+                <h2 class="certificate-text" id="studentFullName">Samuel Ade</h2>
+                <p class="fs-3 mb-4">has successfully completed the course</p>
+                <h3 class="fw-bold text-primary" id="courseFullName">Web Design Fundamentals</h3>
+
+                <div class="d-flex justify-content-center gap-5 mt-5">
+                    <div>
+                        <p class="mb-1 text-muted">Date of Issue</p>
+                        <strong id="issueDate" class="fs-4">March 25, 2026</strong>
+                    </div>
+                    <div>
+                        <p class="mb-1 text-muted">Certificate ID</p>
+                        <strong class="fs-4">#ED-7843921</strong>
+                    </div>
+                </div>
+
+                <!-- Official Seal -->
+                <div class="seal">
+                    OFFICIAL<br>SEAL
+                </div>
+
+                <div class="mt-5 pt-5 border-top">
+                    <div class="d-flex align-items-end justify-content-between">
+                        <div>
+                            <p class="mb-0 text-muted">Director, E-Douglas Academy</p>
+                            <strong class="fs-4">Dr. Blessing Okorie</strong>
+                        </div>
+                        <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" alt="Logo" style="height: 80px; opacity: 0.9;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="bg-light p-5 text-center">
+                <button onclick="downloadCertificate()" class="btn btn-certificate text-white me-3">
+                    <i class="bi bi-download"></i> Download as PDF
+                </button>
+                <button onclick="shareCertificate()" class="btn btn-outline-primary px-5 py-3">
+                    <i class="bi bi-share"></i> Share Certificate
+                </button>
+                <a href="/Student/Dashboard" class="btn btn-link text-muted mt-3 d-block">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Fake real data (you can pass real values from controller later)
+    document.getElementById('studentFullName').textContent = "Samuel Ade";
+    document.getElementById('courseFullName').textContent = "Web Design Fundamentals";
+    document.getElementById('issueDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    function downloadCertificate() {
+        successAlert("Certificate downloaded as PDF! 🎉");
+        // In real app you would trigger a real PDF generation here
+    }
+
+    function shareCertificate() {
+        successAlert("Certificate link copied to clipboard! Share it on LinkedIn or WhatsApp.");
+    }
+</script>

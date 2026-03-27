@@ -1,0 +1,158 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Certificate Approvals";
+}
+
+<style>
+    .admin-page {
+        background: #0f172a;
+        color: #f8fafc;
+        min-height: calc(100vh - 110px);
+        padding: 40px 0;
+    }
+
+    .table-container {
+        background: #1e2937;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 212, 255, 0.15);
+    }
+
+    .table thead {
+        background: #15037A;
+        color: white;
+    }
+
+    .approval-row:hover {
+        background: #334155 !important;
+    }
+
+    .badge-pending {
+        background: #f59e0b;
+        color: white;
+        padding: 6px 18px;
+        border-radius: 50px;
+    }
+
+    .btn-approve {
+        background: linear-gradient(90deg, #10B981, #34d399);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 24px;
+        font-weight: 600;
+    }
+
+    .btn-reject {
+        background: linear-gradient(90deg, #ef4444, #f87171);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 24px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="admin-page">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="display-5 fw-bold mb-1">Certificate Approvals</h1>
+                <p class="text-light lead mb-0">Review &amp; approve student completions • <span id="pendingCount">12</span> pending</p>
+            </div>
+            <a href="/Admin/Dashboard" class="btn btn-outline-light px-5 py-3">← Back to Dashboard</a>
+        </div>
+
+        <div class="table-container p-4">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Course</th>
+                        <th>Completed On</th>
+                        <th>Progress</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="approvalsTable">
+                    <!-- Populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Sample pending approvals
+    let approvals = [
+        {
+            id: 1,
+            student: "Samuel Ade",
+            course: "Web Design Fundamentals",
+            completedDate: "Mar 24, 2026",
+            progress: "100%",
+            status: "pending"
+        },
+        {
+            id: 2,
+            student: "Peace Johnson",
+            course: "Microsoft Office Mastery",
+            completedDate: "Mar 23, 2026",
+            progress: "100%",
+            status: "pending"
+        },
+        {
+            id: 3,
+            student: "Abdul Musa",
+            course: "Computer Appreciation",
+            completedDate: "Mar 22, 2026",
+            progress: "100%",
+            status: "pending"
+        }
+    ];
+
+    function renderApprovals() {
+        const tbody = document.getElementById('approvalsTable');
+        tbody.innerHTML = approvals.map(item => `
+            <tr class="approval-row">
+                <td><strong>${item.student}</strong></td>
+                <td>${item.course}</td>
+                <td>${item.completedDate}</td>
+                <td><strong class="text-success">${item.progress}</strong></td>
+                <td><span class="badge-pending">PENDING APPROVAL</span></td>
+                <td>
+                    <button onclick="approveCompletion(${item.id})" class="btn btn-approve me-2">
+                        <i class="bi bi-check-circle"></i> Approve
+                    </button>
+                    <button onclick="rejectCompletion(${item.id})" class="btn btn-reject">
+                        <i class="bi bi-x-circle"></i> Reject
+                    </button>
+                </td>
+            </tr>
+        `).join('');
+
+        document.getElementById('pendingCount').textContent = approvals.length;
+    }
+
+    function approveCompletion(id) {
+        if (confirm("Approve certificate for this student?")) {
+            // Call your backend ApproveCompletion endpoint here later
+            successAlert("Certificate approved and issued! 🎉");
+            approvals = approvals.filter(a => a.id !== id);
+            renderApprovals();
+        }
+    }
+
+    function rejectCompletion(id) {
+        if (confirm("Reject this certificate request?")) {
+            // Call your backend RejectCompletion endpoint here later
+            successAlert("Certificate request rejected.");
+            approvals = approvals.filter(a => a.id !== id);
+            renderApprovals();
+        }
+    }
+
+    // Initial render
+    window.onload = renderApprovals;
+</script>

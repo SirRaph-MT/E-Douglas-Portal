@@ -54,6 +54,21 @@
     .carousel-control-next-icon {
         background-size: 50% 50%;
     }
+    .btn-magic {
+    background: linear-gradient(90deg, #15037A, #00D4FF);
+    border: none;
+    border-radius: 50px;
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-magic:hover {
+    transform: translateY(-6px) scale(1.08);
+    box-shadow: 0 20px 40px rgba(0, 212, 255, 0.5);
+}
 </style>
 <section id="hero" class="hero section dark-background">
     <div class="video-background">
@@ -73,8 +88,11 @@
                 <p data-aos="fade-up" data-aos-delay="200" class="lead">
                     Practical computer training designed to prepare you for today’s tech-driven world.
                 </p>
-                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
-                    <a href="/Account/Register" class="btn btn-primary btn-lg">Enroll Now</a>
+               <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+              <a href="/Account/Register" class="btn btn-magic text-white">
+                     Enroll Now – Start Today!
+                   <i class="bi bi-arrow-right ms-2"></i>
+                     </a>
                 </div>
             </div>
         </div>

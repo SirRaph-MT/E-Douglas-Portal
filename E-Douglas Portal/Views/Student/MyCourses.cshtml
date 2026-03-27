@@ -1,0 +1,173 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "My Courses";
+}
+
+<style>
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 28px;
+    }
+
+    .course-card {
+        background: white;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #e2e8f0;
+    }
+
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(0, 212, 255, 0.25);
+        }
+
+    .course-image {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .progress-bar {
+        height: 10px;
+        background: #e2e8f0;
+        border-radius: 50px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        transition: width 1s ease;
+    }
+
+    .status-badge {
+        font-size: 0.8rem;
+        padding: 4px 14px;
+        border-radius: 50px;
+    }
+
+    .btn-continue {
+        background: linear-gradient(90deg, #15037A, #00D4FF);
+        border: none;
+        border-radius: 50px;
+        padding: 12px 28px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="display-5 fw-bold">My Courses</h1>
+            <p class="text-muted lead">Continue learning • Track your progress</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="btn-group" role="group">
+            <button onclick="filterCourses('all')" class="btn btn-outline-primary active" id="filter-all">All</button>
+            <button onclick="filterCourses('progress')" class="btn btn-outline-primary" id="filter-progress">In Progress</button>
+            <button onclick="filterCourses('completed')" class="btn btn-outline-primary" id="filter-completed">Completed</button>
+        </div>
+    </div>
+
+    <div class="course-grid" id="coursesGrid">
+        <!-- Cards populated by JavaScript -->
+    </div>
+
+</div>
+
+<script>
+    // Sample enrolled courses (replace later with real API call if needed)
+    let allCourses = [
+        {
+            id: 1,
+            title: "Web Design Fundamentals",
+            image: "https://picsum.photos/id/1015/800/400",
+            progress: 75,
+            status: "progress",
+            lastAccessed: "2 days ago"
+        },
+        {
+            id: 2,
+            title: "Microsoft Office Mastery",
+            image: "https://picsum.photos/id/201/800/400",
+            progress: 40,
+            status: "progress",
+            lastAccessed: "5 days ago"
+        },
+        {
+            id: 3,
+            title: "Computer Appreciation & Basics",
+            image: "https://picsum.photos/id/237/800/400",
+            progress: 100,
+            status: "completed",
+            lastAccessed: "3 weeks ago"
+        },
+        {
+            id: 4,
+            title: "Digital Marketing Essentials",
+            image: "https://picsum.photos/id/180/800/400",
+            progress: 90,
+            status: "progress",
+            lastAccessed: "Yesterday"
+        }
+    ];
+
+    function renderCourses(filteredCourses) {
+        const container = document.getElementById('coursesGrid');
+        container.innerHTML = filteredCourses.map(course => `
+            <div class="course-card">
+                <img src="${course.image}" class="course-image w-100" alt="${course.title}">
+                <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h5 class="fw-semibold mb-0">${course.title}</h5>
+                        ${course.status === 'completed'
+                            ? `<span class="status-badge bg-success text-white">Completed</span>`
+                            : `<span class="status-badge bg-primary text-white">In Progress</span>`}
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between small mb-1">
+                            <span>Progress</span>
+                            <span class="fw-semibold">${course.progress}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${course.progress}%"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Last accessed ${course.lastAccessed}</small>
+                        <a href="/Student/CourseDetails/${course.id}" class="btn btn-continue text-white">
+                            ${course.status === 'completed' ? 'View Certificate' : 'Continue Learning'}
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Filter function
+    function filterCourses(type) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.btn-group button').forEach(btn => btn.classList.remove('active'));
+
+        if (type === 'all') {
+            document.getElementById('filter-all').classList.add('active');
+            renderCourses(allCourses);
+        } else if (type === 'progress') {
+            document.getElementById('filter-progress').classList.add('active');
+            renderCourses(allCourses.filter(c => c.status === 'progress'));
+        } else if (type === 'completed') {
+            document.getElementById('filter-completed').classList.add('active');
+            renderCourses(allCourses.filter(c => c.status === 'completed'));
+        }
+    }
+
+    // Initial render
+    window.onload = () => renderCourses(allCourses);
+</script>

@@ -116,5 +116,11 @@ namespace E_Douglas_Portal.Controllers
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        } 
     }
 }

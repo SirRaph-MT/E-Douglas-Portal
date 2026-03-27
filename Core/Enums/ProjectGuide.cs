@@ -42,12 +42,12 @@ namespace Core.Enums
         //}
 
         // POST: Logs user out
-        [HttpPost]
-        public IActionResult Logout()
-        {
-            // Ends user session
-            return RedirectToAction("Login");
-        }
+                                [HttpPost]
+                                public IActionResult Logout()
+                                {
+                                    // Ends user session
+                                    return RedirectToAction("Login");
+                                }
 
         // GET: Forgot password page
         [HttpGet]

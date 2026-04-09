@@ -1,15 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.DB;
+using Core.Models;
+using Core.ViewModels;
+using Logic.IHelper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace E_Douglas_Portal.Controllers
 {
     [Authorize(Roles = "Admin,SuperAdmin")]
     public class CourseController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly ICourseHelper _courseHelper;
+        private readonly AppDBContext _context;
+
+        public CourseController(ICourseHelper courseHelper, AppDBContext context)
         {
-            return View();
+            _courseHelper = courseHelper;
+            _context = context;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index(IPageListModel<CourseViewModel> model, int page = 1)
+        {
+            var courses = _courseHelper.Courses(model, page);
+            model.Model = courses;
+            model.SearchAction = "Index";
+            model.SearchController = "Course";
+            return View(model);
         }
 
         [HttpGet]

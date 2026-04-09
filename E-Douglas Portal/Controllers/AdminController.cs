@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Core.ViewModels;
 
 namespace E_Douglas_Portal.Controllers
 {
@@ -9,7 +10,16 @@ namespace E_Douglas_Portal.Controllers
         [HttpGet]
         public IActionResult Dashboard()
         {
-            return View();
+            var model = new AdminDashboardViewModel
+            {
+                UserName = User.Identity.Name ?? "Admin",
+                TotalStudents = 248,
+                ActiveCourses = 12,
+                CertificatesIssued = 87,
+                TotalEarnings = 4800000
+            };
+
+            return View(model);
         }
 
         [HttpGet]

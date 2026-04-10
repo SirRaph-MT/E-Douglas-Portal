@@ -13,5 +13,6 @@ namespace Core.ViewModels
         public int ActiveCourses { get; set; }
         public int CertificatesIssued { get; set; }
         public decimal TotalEarnings { get; set; }
+        public int Users { get; set; }
     }
 }

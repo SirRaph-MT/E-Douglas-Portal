@@ -12,6 +12,7 @@ namespace Logic.Services
             services.AddScoped<IUserHelper, UserHelper>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IEmailTemplateService, EmailTemplateService>();
+            services.AddScoped<ICourseHelper, CourseHelper>();
             return services;
         }
     }

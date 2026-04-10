@@ -1,11 +1,13 @@
 ﻿using Core.DB;
+using Core.DbContext;
 using Core.Models;
 using Core.Seed;
 using Core.ViewModels;
 using Logic.IHelper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Core.DbContext;
+using Microsoft.EntityFrameworkCore;
+using X.PagedList;
+using X.PagedList.Extensions;
 namespace Logic.Helper
 {
     public class UserHelper: IUserHelper
@@ -75,6 +77,103 @@ namespace Logic.Helper
                 }
             }
             return null;
+        }
+
+        public string GetRoleLayout()
+        {
+            var user = Utility.GetCurrentUser();
+            if (user == null)
+            {
+                return Constants.DefaultLayout;
+            }
+            var isSuperAdmin = user.Roles.Contains(Constants.SuperAdminRole);
+            return isSuperAdmin ? Constants.SuperAdminLayout : Constants.GeneralLayout;
+        }
+
+        public IPagedList<ApplicationUserViewModel> Users(IPageListModel<ApplicationUserViewModel> model, int page)
+        {
+            try
+            {
+                var query = GetUsers();
+
+                if (!string.IsNullOrEmpty(model.Keyword))
+                {
+                    var key = model.Keyword.ToLower();
+
+                    query = query.Where(x =>
+                        x.FirstName.ToLower().Contains(key) ||
+                        x.LastName.ToLower().Contains(key) ||
+                        x.Email.ToLower().Contains(key) ||
+                        x.PhoneNumber.ToLower().Contains(key) ||
+                        x.FullName.ToLower().Contains(key));
+                }
+
+                if (model.StartDate.HasValue)
+                {
+                    query = query.Where(x => x.DateRegistered >= model.StartDate);
+                }
+                if (model.EndDate.HasValue)
+                {
+                    query = query.Where(x => x.DateOfBirth <= model.EndDate);
+                }
+
+                var logs = query
+                    .OrderByDescending(x => x.DateRegistered)
+                    .Select(r => new ApplicationUserViewModel
+                    {
+                        Id = r.Id,
+                        FirstName = r.FirstName,
+                        LastName = r.LastName,
+                        Email = r.Email,
+                        FullName = $"{r.FirstName} {r.LastName}",
+                        PhoneNumber = r.PhoneNumber,
+                        DateRegistered = r.DateRegistered,
+                        DateOfBirth = r.DateOfBirth,
+                        IsAdmin = r.IsAdmin
+                    }).ToPagedList(page, 25);
+                model.CanFilterByDeliveryStatus = true;
+
+                return logs;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public IQueryable<ApplicationUserViewModel> GetUsers()
+        {
+            var adminRoleId = _context.Roles
+                .Where(r => r.Name == SeedItems.AdminRole)
+                .Select(r => r.Id)
+                .FirstOrDefault();
+
+            var userRoleId = _context.Roles
+                .Where(r => r.Name == SeedItems.UserRole)
+                .Select(r => r.Id)
+                .FirstOrDefault();
+
+            var query =
+                from u in _context.applicationUsers
+                where !u.Deleted
+                let isAdmin = _context.UserRoles
+                    .Any(ur => ur.UserId == u.Id && ur.RoleId == adminRoleId)
+                let isUser = _context.UserRoles
+                    .Any(ur => ur.UserId == u.Id && ur.RoleId == userRoleId)
+                where isAdmin || isUser
+                select new ApplicationUserViewModel
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    FullName = u.FirstName + " " + u.LastName,
+                    PhoneNumber = u.PhoneNumber,
+                    DateRegistered = u.DateCreated,
+                    DateOfBirth = u.DateOfBirth,
+                    IsAdmin = isAdmin
+                };
+
+            return query;
         }
     }
 }

@@ -12,28 +12,30 @@ namespace E_Douglas_Portal.Controllers
         private readonly ICourseHelper _courseHelper;
         private readonly AppDBContext _context;
         private readonly IUserHelper _userHelper;
+        private readonly IStudentHelper _students;
 
-        public AdminController(ICourseHelper courseHelper, AppDBContext context, IUserHelper userHelper)
+        public AdminController(ICourseHelper courseHelper, AppDBContext context, IUserHelper userHelper, IStudentHelper students)
         {
             _courseHelper = courseHelper;
             _context = context;
             _userHelper = userHelper;
+            _students = students;
         }
         [HttpGet]
         public IActionResult Dashboard()
         {
-            var model = new AdminDashboardViewModel
-            {
-                UserName = User.Identity.Name ?? "Admin",
-                TotalStudents = 248,
-                ActiveCourses = 12,
-                CertificatesIssued = 87,
-                TotalEarnings = 4800000,
-                Users = _context.Users.Count(),
-            };
-
-
-            return View(model);
+            ViewBag.Layout = _userHelper.GetRoleLayout();
+            var students = _students.GetAllStudents();
+            //var data = new AdminDashboardViewModel
+            //{
+            //    UserName = Utility.GetCurrentUser().FullName,
+            //    ProjectCount = projects.ToList().Count,
+            //    ClientCount = _userHelper.GetUsers().ToList().Count,
+            //    Projects = projects.ToList(),
+            //    TotalEarnings = _context.Contributions.Sum(x => x.Amount),
+            //    ContibutorsCount = _projectHelper.GetContributors().Count
+            //};
+            return View(students);
         }
 
         [HttpGet]

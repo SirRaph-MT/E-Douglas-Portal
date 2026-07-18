@@ -19,5 +19,7 @@ namespace Core.ViewModels
         public DateTime? DateRegistered { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool IsAdmin { get; set; }
+
+        public string? ProfilePictureUrl { get; set; }
     }
 }

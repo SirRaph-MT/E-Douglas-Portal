@@ -13,6 +13,7 @@ namespace Logic.IHelper
     {
         Task<ApplicationUser?> FindByEmailAsync(string email);
         string GetRoleLayout();
+        IQueryable<ApplicationUserViewModel> GetUsers();
         string GetValidatedUrl(List<string> roles);
         Task<ApplicationUser?> RegisterUser(ApplicationUserViewModel applicationUserViewModel);
         IPagedList<ApplicationUserViewModel> Users(IPageListModel<ApplicationUserViewModel> model, int page);

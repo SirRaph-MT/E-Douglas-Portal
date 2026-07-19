@@ -1,5 +1,6 @@
 ﻿using Core.DB;
 using Core.ViewModels;
+using Logic;                    
 using Logic.IHelper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,27 +22,28 @@ namespace E_Douglas_Portal.Controllers
             _userHelper = userHelper;
             _students = students;
         }
+
         [HttpGet]
         public IActionResult Dashboard()
         {
-            ViewBag.Layout = _userHelper.GetRoleLayout();
-            var students = _students.GetAllStudents();
-            //var data = new AdminDashboardViewModel
-            //{
-            //    UserName = Utility.GetCurrentUser().FullName,
-            //    ProjectCount = projects.ToList().Count,
-            //    ClientCount = _userHelper.GetUsers().ToList().Count,
-            //    Projects = projects.ToList(),
-            //    TotalEarnings = _context.Contributions.Sum(x => x.Amount),
-            //    ContibutorsCount = _projectHelper.GetContributors().Count
-            //};
-            return View(students);
+            var currentUser = Utility.GetCurrentUser();
+
+            var data = new AdminDashboardViewModel
+            {
+                UserName = currentUser?.FullName?.Trim() ?? "Admin",
+                TotalStudents = _students.GetAllStudents().Count(),
+                ActiveCourses = _context.Courses.Count(c => !c.Deleted && c.IsActive),
+                CertificatesIssued = 0, // TODO: wire up once Approvals/Certificates module is built
+                TotalEarnings = 0,      // TODO: wire up once Payment module is built
+                Users = _userHelper.GetUsers().Count()
+            };
+
+            return View(data);
         }
 
         [HttpGet]
         public IActionResult AllUSers(IPageListModel<ApplicationUserViewModel> model, int page = 1)
         {
-            //ViewBag.Layout = _userHelper.GetRoleLayout();
             var users = _userHelper.Users(model, page);
             model.Model = users;
             model.SearchAction = "AllUSers";
@@ -50,39 +52,33 @@ namespace E_Douglas_Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Students()
+        public IActionResult Students(IPageListModel<ApplicationUserViewModel> model, int page = 1)
         {
-            return View();
+            var students = _students.Students(model, page);
+            model.Model = students;
+            model.SearchAction = "Students";
+            model.SearchController = "Admin";
+            return View(model);
         }
 
         [HttpGet]
         public IActionResult StudentDetails(int id)
         {
-            return View();
+            return View();   // next feature — leaving as-is for now
         }
 
         [HttpGet]
-        public IActionResult Enrollments()
-        {
-            return View();
-        }
+        public IActionResult Enrollments() => View();
 
         [HttpGet]
-        public IActionResult Approvals()
-        {
-            return View();
-        }
+        public IActionResult Approvals() => View();
 
         [HttpPost]
-        public JsonResult ApproveCompletion(int studentCourseId)
-        {
-            return Json(new { isError = false, msg = "Certificate approved successfully" });
-        }
+        public JsonResult ApproveCompletion(int studentCourseId) =>
+            Json(new { isError = false, msg = "Certificate approved successfully" });
 
         [HttpPost]
-        public JsonResult RejectCompletion(int studentCourseId)
-        {
-            return Json(new { isError = false, msg = "Certificate request rejected" });
-        }
+        public JsonResult RejectCompletion(int studentCourseId) =>
+            Json(new { isError = false, msg = "Certificate request rejected" });
     }
 }

@@ -1,4 +1,5 @@
 using Core.DB;
+using Logic;                   
 using Logic.Services;
 using Core.Models;
 using Hangfire;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor(); 
 builder.Services.RegisterHelpers();
 
 // Register the database context
@@ -36,6 +38,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
+Logic.AppHttpContext.Services = app.Services; 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

@@ -1,6 +1,7 @@
 ﻿using Core.DB;
 using Core.Models;
 using Core.ViewModels;
+using E_Douglas_Portal.Models;
 using Logic.IHelper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +37,13 @@ namespace E_Douglas_Portal.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(object courseData)
+        public JsonResult Create(CourseViewModel courseData)
         {
-            return Json(new { isError = false, msg = "Course created successfully" });
+            if (courseData == null || string.IsNullOrWhiteSpace(courseData.Title))
+                return ResponseHelper.JsonError("Course title is required");
+
+            _courseHelper.CreateCourse(courseData);
+            return ResponseHelper.JsonSuccessWithReturnUrl("/Course/Index");
         }
 
         [HttpGet]

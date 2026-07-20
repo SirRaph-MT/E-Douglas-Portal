@@ -1,7 +1,7 @@
 ﻿using Core.DB;
 using Core.ViewModels;
 using Logic.IHelper;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;   
 using X.PagedList;
 using X.PagedList.Extensions;
 
@@ -66,6 +66,54 @@ namespace Logic.Helper
             {
                 throw;
             }
+        }
+
+        public StudentDetailsViewModel? GetStudentDetails(string userId)
+        {
+            if (string.IsNullOrWhiteSpace(userId)) return null;
+
+            var user = _context.applicationUsers
+                .Include(u => u.StudentProfile)
+                .FirstOrDefault(u => u.Id == userId && !u.Deleted);
+
+            if (user == null) return null;
+
+            var profile = user.StudentProfile;
+
+            var enrolledCourses = profile == null
+                ? new List<EnrolledCourseViewModel>()
+                : _context.Enrollments
+                    .Include(e => e.Course)
+                    .Include(e => e.ProgressRecords)
+                    .Where(e => !e.Deleted && e.StudentProfileId == profile.Id)
+                    .ToList()
+                    .Select(e => new EnrolledCourseViewModel
+                    {
+                        EnrollmentId = e.Id,
+                        CourseId = e.CourseId ?? 0,
+                        CourseTitle = e.Course?.Title ?? "Unknown Course",
+                        EnrollmentStatus = e.EnrollmentStatus.ToString(),
+                        ProgressPercentage = e.ProgressRecords.Any()
+                            ? Math.Round(e.ProgressRecords.Average(p => p.ProgressPercentage ?? 0), 1)
+                            : 0
+                    })
+                    .ToList();
+
+            return new StudentDetailsViewModel
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = profile?.DateOfBirth ?? user.DateOfBirth,
+                StudentType = profile?.StudentType.ToString(),
+                SponsorName = profile?.SponsorName,
+                SponsorPhone = profile?.SponsorPhone,
+                SponsorAddress = profile?.SponsorAddres,
+                ProfilePictureUrl = user.ProfilePictureUrl,
+                Deleted = user.Deleted,
+                EnrolledCourses = enrolledCourses
+            };
         }
     }
 }

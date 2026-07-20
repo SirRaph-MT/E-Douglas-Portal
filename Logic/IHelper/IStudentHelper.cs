@@ -7,5 +7,6 @@ namespace Logic.IHelper
     {
         IQueryable<ApplicationUserViewModel> GetAllStudents();
         IPagedList<ApplicationUserViewModel> Students(IPageListModel<ApplicationUserViewModel> model, int page);
+        StudentDetailsViewModel? GetStudentDetails(string userId);
     }
 }

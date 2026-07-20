@@ -1,16 +1,20 @@
-using System.Diagnostics;
+using Core.DB;
 using E_Douglas_Portal.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace E_Douglas_Portal.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDBContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDBContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -27,9 +31,11 @@ namespace E_Douglas_Portal.Controllers
             return View();
         }
 
-        public IActionResult CourseDetails()
+        public IActionResult CourseDetails(long id)
         {
-            return View();
+            var course = _context.Courses.FirstOrDefault(c => c.Id == id && !c.Deleted);
+            if (course == null) return NotFound();
+            return View(course);
         }
         public IActionResult Courses()
         {

@@ -14,13 +14,15 @@ namespace E_Douglas_Portal.Controllers
         private readonly AppDBContext _context;
         private readonly IUserHelper _userHelper;
         private readonly IStudentHelper _students;
+        private readonly IEnrollmentHelper _enrollmentHelper;
 
-        public AdminController(ICourseHelper courseHelper, AppDBContext context, IUserHelper userHelper, IStudentHelper students)
+        public AdminController(ICourseHelper courseHelper, AppDBContext context, IUserHelper userHelper, IStudentHelper students, IEnrollmentHelper enrollmentHelper)
         {
             _courseHelper = courseHelper;
             _context = context;
             _userHelper = userHelper;
             _students = students;
+            _enrollmentHelper = enrollmentHelper;
         }
 
         [HttpGet]
@@ -62,13 +64,25 @@ namespace E_Douglas_Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult StudentDetails(int id)
+        public IActionResult StudentDetails(string id)
         {
-            return View();   // next feature — leaving as-is for now
+            if (string.IsNullOrEmpty(id)) return NotFound();
+
+            var details = _students.GetStudentDetails(id);
+            if (details == null) return NotFound();
+
+            return View(details);
         }
 
         [HttpGet]
-        public IActionResult Enrollments() => View();
+        public IActionResult Enrollments(IPageListModel<EnrollmentListViewModel> model, int page = 1)
+        {
+            var enrollments = _enrollmentHelper.Enrollments(model, page);
+            model.Model = enrollments;
+            model.SearchAction = "Enrollments";
+            model.SearchController = "Admin";
+            return View(model);
+        }
 
         [HttpGet]
         public IActionResult Approvals() => View();

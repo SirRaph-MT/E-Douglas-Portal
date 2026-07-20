@@ -11,5 +11,6 @@ namespace Logic.IHelper
     public interface ICourseHelper
     {
         IPagedList<CourseViewModel> Courses(IPageListModel<CourseViewModel> model, int page);
+        long CreateCourse(CourseViewModel model);
     }
 }

@@ -18,6 +18,7 @@ namespace Core.DB
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<ProgressRecord> ProgressRecords { get; set; }
         public DbSet<DropDown> DropDowns { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
     }
 }

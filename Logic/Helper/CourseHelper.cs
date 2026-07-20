@@ -56,5 +56,20 @@ namespace Logic.Helper
                 throw;
             }
         }
+
+        public long CreateCourse(CourseViewModel model)
+        {
+            var course = new Core.Models.Course
+            {
+                Title = model.Title,
+                Description = model.Description,
+                Price = model.Price,
+                Duration = model.Duration,
+                IsActive = true
+            };
+            _context.Courses.Add(course);
+            _context.SaveChanges();
+            return course.Id;
+        }
     }
 }

@@ -1,132 +1,31 @@
-﻿@{
+﻿@model Core.ViewModels.CheckoutViewModel
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Checkout";
 }
 
-<style>
-    .checkout-page {
-        background: #0f172a;
-        color: #f8fafc;
-        min-height: calc(100vh - 110px);
-        padding: 60px 0;
-    }
+<strong id="courseName">@Model.CourseTitle</strong>
+<span id="coursePrice">₦@Model.Amount.ToString("N0")</span>
+<span id="subtotal">₦@Model.Amount.ToString("N0")</span>
+<span class="price-total" id="totalAmount">₦@Model.Amount.ToString("N0")</span>
 
-    .checkout-card {
-        background: white;
-        color: #0f172a;
-        border-radius: 28px;
-        overflow: hidden;
-        box-shadow: 0 25px 60px rgba(21, 3, 122, 0.25);
-        max-width: 800px;
-        margin: 0 auto;
-    }
+<input type="email" id="email" class="form-control" value="@Model.StudentEmail" readonly />
+<input type="text" id="fullName" class="form-control" value="@Model.StudentFullName" readonly />
 
-    .order-summary {
-        background: #f8fafc;
-        padding: 40px;
-    }
-
-    .price-total {
-        font-size: 2.8rem;
-        font-weight: 700;
-        background: linear-gradient(90deg, #15037A, #00D4FF);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .pay-btn {
-        background: linear-gradient(90deg, #15037A, #00D4FF);
-        border: none;
-        border-radius: 50px;
-        padding: 18px 60px;
-        font-size: 1.3rem;
-        font-weight: 700;
-        box-shadow: 0 15px 35px rgba(0, 212, 255, 0.4);
-    }
-
-        .pay-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 45px rgba(0, 212, 255, 0.5);
-        }
-</style>
-
-<div class="checkout-page">
-    <div class="container">
-        <div class="checkout-card">
-
-            <div class="row g-0">
-
-                <!-- Left: Order Summary -->
-                <div class="col-lg-7 order-summary">
-                    <h3 class="fw-bold mb-4">Order Summary</h3>
-
-                    <div class="d-flex justify-content-between mb-3">
-                        <strong id="courseName">Web Design Fundamentals</strong>
-                        <span id="coursePrice">₦85,000</span>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal</span>
-                        <span id="subtotal">₦85,000</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-4">
-                        <span>Transaction Fee</span>
-                        <span>₦0</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between fs-4 fw-bold">
-                        <span>Total</span>
-                        <span class="price-total" id="totalAmount">₦85,000</span>
-                    </div>
-
-                    <small class="text-muted d-block mt-4">
-                        You will be redirected to a secure payment page after clicking Pay Now
-                    </small>
-                </div>
-
-                <!-- Right: Payment Details -->
-                <div class="col-lg-5 bg-white p-5 d-flex flex-column justify-content-center">
-                    <div class="text-center mb-4">
-                        <img src="~/Images/EDOUGLAS ACADEMY LOGO.jpg" style="height: 70px;" class="mb-3">
-                        <h4 class="fw-semibold">Secure Checkout</h4>
-                        <p class="text-muted">Powered by Paystack / Flutterwave</p>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Email Address</label>
-                        <input type="email" id="email" class="form-control" value="student@email.com" readonly />
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold">Full Name</label>
-                        <input type="text" id="fullName" class="form-control" value="Blessing Okorie" readonly />
-                    </div>
-
-                    <button onclick="initiatePayment()" class="pay-btn text-white w-100 mt-3">
-                        Pay Now – ₦85,000
-                    </button>
-
-                    <p class="text-center text-muted small mt-4">
-                        🔒 Secured by 256-bit SSL • Money-back guarantee
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="/Student/MyCourses" class="text-light">← Back to My Courses</a>
-        </div>
-    </div>
-</div>
+<button onclick="initiatePayment(@Model.EnrollmentId)" class="pay-btn text-white w-100 mt-3">
+    Pay Now – ₦@Model.Amount.ToString("N0")
+</button>
 
 <script>
-    function initiatePayment() {
-        successAlertWithRedirect(
-            "Redirecting to secure payment gateway...",
-            "/Payment/PaymentSuccess"
-        );
-        // In real app, you will call your InitializePayment endpoint here
+    function initiatePayment(enrollmentId) {
+        $.ajax({
+            type: 'POST', url: '/Payment/InitializePayment', dataType: 'json',
+            data: { enrollmentId: enrollmentId },
+            success: function (result) {
+                if (!result.isError) { location.href = result.returnUrl; }
+                else { infoAlert(result.msg); }
+            },
+            error: function () { errorAlert("An error occurred. Please try again."); }
+        });
     }
 </script>
